@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "Egresso2"
+version = "0.1.0"
+description = ""
+authors = ["Ricardo <ricardo.pulquerio@unemat.br>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.79.1"
+bcrypt = "^3.2.2"
+SQLAlchemy = "^1.4.40"
+PyJWT = "^2.4.0"
+uvicorn = "^0.18.2"
+Jinja2 = "^3.1.2"
+emails = "^0.6"
+pydantic = {extras = ["dotenv"], version = "^1.9.2"}
+passlib = "^1.7.4"
+email-validator = "^1.2.1"
+alembic = "^1.8.1"
+psycopg2-binary = "^2.9.3"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
+black = {version = "^22.8.0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
