@@ -11,10 +11,10 @@ __all__ = ['PostUser', 'GetUser', 'PutUser',]
 
 
 class PostUser(BaseModel):
-    username: str | None = Field(description='Username Documentar', max_length=255)
-    password: str | None = Field(description='Password Documentar', max_length=255)
-    active: bool | None = Field(description='Active Documentar')
-    role_uuid: UUID | None = Field(description='Role_uuid Documentar')
+    username: str | None = Field(description='Username: email do usuário ', max_length=255)
+    password: str | None = Field(description='Password: hash de 255 caracteres', max_length=255)
+    active: bool | None = Field(description='Active: conta ativa ou não, para previnir spam de contas com o mesmo email')
+    role_uuid: UUID | None = Field(description='Uuid do nível de permissão de acesso do usuário')
 
     
 

@@ -29,3 +29,6 @@ class Students(db.Base):
         db.UUID(as_uuid=True), db.ForeignKey("user.uuid"), nullable=False
     )
 
+    # address_uuid = db.Column(
+    #     db.UUID(as_uuid=True), db.ForeignKey("address.uuid"), nullable=False
+    # )

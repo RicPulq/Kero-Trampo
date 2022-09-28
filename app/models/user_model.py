@@ -7,10 +7,11 @@ class User(db.Base):
     password = db.Column(db.String(255), nullable=False)
     active = db.Column(db.Boolean, default=True)
     role_uuid = db.Column(db.UUID(as_uuid=True), db.ForeignKey("role.uuid"))
-    students_relation = db.relationship("Students", backref="user",lazy="joined")
+    students_relation = db.relationship(
+        "Students", backref="user", lazy="joined", cascade="all, delete"
+    )
     company_relation = db.relationship("Company", backref="user", lazy="joined")
     courses_relation = db.relationship("Courses", backref="user", lazy="joined")
-
 
     @classmethod
     def login(self, username: str, password: str):
