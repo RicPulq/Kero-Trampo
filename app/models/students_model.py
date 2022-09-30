@@ -28,7 +28,13 @@ class Students(db.Base):
     user_uuid = db.Column(
         db.UUID(as_uuid=True), db.ForeignKey("user.uuid"), nullable=False
     )
+    user = db.relationship(
+        "User", back_populates="students_relation", cascade="save-update"
+    )
 
-    # address_uuid = db.Column(
-    #     db.UUID(as_uuid=True), db.ForeignKey("address.uuid"), nullable=False
-    # )
+    address_uuid = db.Column(
+        db.UUID(as_uuid=True), db.ForeignKey("address.uuid"), nullable=False
+    )
+    address = db.relationship(
+        "Address", back_populates="relation_students", cascade="all, delete"
+    )

@@ -11,13 +11,16 @@ router = APIRouter(prefix="/students", tags=["Students"])
 def get_all_students():
     return models.Students.get_all()
 
+
 @router.get("/paginate/", response_model=List[schema.GetStudents], status_code=200)
-def get_paginate_students_by_page_per_page(page:int, per_page: int):
+def get_paginate_students_by_page_per_page(page: int, per_page: int):
     return models.Students.get_paginate(page, per_page)
+
 
 @router.get("/uuid", response_model=schema.GetStudents, status_code=200)
 def get_students_by_uuid(uuid: UUID4):
     return models.Students.get(uuid)
+
 
 @router.post("/", response_model=schema.GetStudents, status_code=201)
 def create_new_students(
@@ -26,13 +29,16 @@ def create_new_students(
     data = models.Students(**json_data.dict())
     return data.create()
 
+
 @router.put("/uuid", response_model=schema.GetStudents, status_code=200)
 def update_students_by_uuid(uuid: UUID4, json_data: schema.PutStudents):
     return models.Students.update(uuid, **json_data.dict(exclude_unset=True))
 
+
 @router.delete("/uuid", status_code=204)
 def delete_students_by_uuid(uuid: UUID4):
     return models.Students.remove(uuid)
+
 
 @router.post("/User_and_Student", status_code=200)
 def post_user_with_students(user: schema.PostUser, students: schema.PostStudents):
@@ -40,11 +46,23 @@ def post_user_with_students(user: schema.PostUser, students: schema.PostStudents
     user_data.students_relation.append(models.Students(**students.dict()))
     return user_data.create()
 
+
 @router.delete("/delete_User_Student", status_code=200)
-def delete_user_with_student(uuid: UUID4):
-    """ Utilizar o UUID do user"""
+def delete_user_student_address(uuid: UUID4):
+    """Utilizar o UUID do Student"""
     return models.User.remove(uuid)
 
+
 @router.post("/user_student_address", status_code=200)
-def post_user_student_address():
-    pass
+def post_user_student_address(user: schema.PostUser, address: schema.PostAddress, student: schema.PostStudents):
+    """ Rota para criar toda a ficha do egressista """
+    # data_student.ad.append(models.Address(**address.dict()))
+
+    data_student = models.Students(**student.dict())
+    data_address = models.Address(**address.dict())
+    data_user = models.User(**user.dict())
+
+    data_address.relation_students.append(data_student)
+    data_user.students_relation.append(data_student)
+    return data_address.create(), data_user.create()
+
