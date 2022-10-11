@@ -23,4 +23,10 @@ class Address(db.Base):
     # tmax 50, nao, Bairro do endereço de contato do comprador.
     district = db.Column(db.String(50), nullable=True)
 
-    relation_students = db.relationship("Students", back_populates="address", lazy="joined", cascade="save-update")
+    # tmax 8, CEP
+    cep = db.Column(db.String(8), nullable=True)
+
+    relation_students = db.relationship(
+        "Students", back_populates="address", lazy="joined", cascade="save-update"
+    )
+    campus = db.relationship("Campus", back_populates="address", lazy="joined", cascade="save-update")

@@ -10,8 +10,8 @@ class User(db.Base):
     students_relation = db.relationship(
         "Students", back_populates="user", lazy="joined", cascade="all, delete"
     )
-    company_relation = db.relationship("Company", backref="user", lazy="joined")
-    courses_relation = db.relationship("Courses", backref="user", lazy="joined")
+    company_relation = db.relationship("Company", backref="user", lazy="joined", cascade="all,delete")
+    courses_relation = db.relationship("Courses", back_populates="user", lazy="joined", cascade="all,delete")
 
     @classmethod
     def login(self, username: str, password: str):

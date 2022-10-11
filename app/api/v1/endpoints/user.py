@@ -12,14 +12,17 @@ router = APIRouter(prefix="/user", tags=["User"])
 def get_all_user():
     return models.User.get_all()
 
+
 @router.get("/paginate/", response_model=List[schema.GetUser], status_code=200)
-def get_paginate_user_by_page_per_page(page:int, per_page: int):
+def get_paginate_user_by_page_per_page(page: int, per_page: int):
     return models.User.get_paginate(page, per_page)
+
 
 @router.get("/uuid", response_model=schema.ShowUser, status_code=200)
 def get_user_by_uuid(uuid: UUID4):
-    """ Busca por UUID e tras tudo o que está relacionado"""
+    """Busca por UUID e tras tudo o que está relacionado"""
     return models.User.get(uuid)
+
 
 @router.post("/", response_model=schema.GetUser, status_code=201)
 def create_new_user(
@@ -39,5 +42,3 @@ def update_user_by_uuid(uuid: UUID4, json_data: schema.PutUser):
 @router.delete("/uuid", status_code=204)
 def delete_user_by_uuid(uuid: UUID4):
     return models.User.remove(uuid)
-
-    

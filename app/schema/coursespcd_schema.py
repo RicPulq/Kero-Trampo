@@ -7,17 +7,17 @@ __all__ = ['PostCoursesPCD', 'GetCoursesPCD', 'PutCoursesPCD',]
 
 
 class PostCoursesPCD(BaseModel):
-    courses_uuid: str | None = Field(description='Courses_uuid Documentar')
-    pcd_uuid: str | None = Field(description='Pcd_uuid Documentar')
+    courses_uuid: UUID | None = Field(description='Courses_uuid Documentar')
+    pcd_uuid: UUID | None = Field(description='Pcd_uuid Documentar')
 
-    
+
 
 class GetCoursesPCD(BaseModel):
     uuid: UUID | None = Field(description='Uuid Documentar')
     creat_at: datetime | None = Field(description='Creat_at Documentar')
     updat_at: datetime | None = Field(description='Updat_at Documentar')
-    courses_uuid: str | None = Field(description='Courses_uuid Documentar')
-    pcd_uuid: str | None = Field(description='Pcd_uuid Documentar')
+    courses_uuid: UUID | None = Field(description='Courses_uuid Documentar')
+    pcd_uuid: UUID | None = Field(description='Pcd_uuid Documentar')
 
 
     class Config:
@@ -26,8 +26,8 @@ class GetCoursesPCD(BaseModel):
 
 
 class PutCoursesPCD(BaseModel):
-    uuid: UUID | None = Field(description='Uuid Documentar')
-    creat_at: datetime | None = Field(description='Creat_at Documentar')
-    updat_at: datetime | None = Field(description='Updat_at Documentar')
-    courses_uuid: str | None = Field(description='Courses_uuid Documentar')
-    pcd_uuid: str | None = Field(description='Pcd_uuid Documentar')
+    # uuid: UUID | None = Field(description='Uuid Documentar')
+    # creat_at: datetime | None = Field(description='Creat_at Documentar')
+    # updat_at: datetime | None = Field(description='Updat_at Documentar')
+    courses_uuid: UUID | None = Field(description='Courses_uuid Documentar')
+    pcd_uuid: UUID | None = Field(description='Pcd_uuid Documentar')

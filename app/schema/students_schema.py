@@ -1,6 +1,13 @@
+from typing import List
 from uuid import UUID
 from pydantic import BaseModel, Field
 from datetime import datetime
+from .academicprofiles_schema import (
+    GetAcademicProfiles,
+    PostAcademicProfiles,
+    PutAcademicProfiles,
+)
+from .address_schema import GetAddress, PostAddress, PutAddress
 
 __all__ = [
     "PostStudents",
@@ -47,10 +54,18 @@ class GetStudents(BaseModel):
         orm_mode = True
 
 
+class ShowStudents(GetStudents):
+    address: GetAddress | None = Field(description="Endereço")
+    academicprofiles: GetAcademicProfiles | None = Field(description="Perfil Acadêmico")
+
+    class Config:
+        orm_mode = True
+
+
 class PutStudents(BaseModel):
-    uuid: UUID | None = Field(description="Uuid Documentar")
-    creat_at: datetime | None = Field(description="Creat_at Documentar")
-    updat_at: datetime | None = Field(description="Updat_at Documentar")
+    # uuid: UUID | None = Field(description="Uuid Documentar")
+    # creat_at: datetime | None = Field(description="Creat_at Documentar")
+    # updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     email: str | None = Field(description="Email Documentar", max_length=255)
     birthdate: datetime | None = Field(description="Birthdate Documentar")
@@ -65,3 +80,11 @@ class PutStudents(BaseModel):
     )
     pcd: bool | None = Field(description="Pcd Documentar")
     # user_uuid: UUID | None = Field(description='User_uuid Documentar')
+
+
+class UpdateStudent(PutStudents):
+    address: PutAddress
+    academicprofiles: PutAcademicProfiles
+
+    class Config:
+        orm_mode = True

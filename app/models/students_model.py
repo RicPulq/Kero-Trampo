@@ -29,12 +29,28 @@ class Students(db.Base):
         db.UUID(as_uuid=True), db.ForeignKey("user.uuid"), nullable=False
     )
     user = db.relationship(
-        "User", back_populates="students_relation", cascade="save-update"
+        "User", back_populates="students_relation", lazy="joined", cascade="save-update"
     )
 
+    # uuid do Endereço o qual pertence o perfil
     address_uuid = db.Column(
         db.UUID(as_uuid=True), db.ForeignKey("address.uuid"), nullable=False
     )
     address = db.relationship(
-        "Address", back_populates="relation_students", cascade="all, delete"
+        "Address",
+        back_populates="relation_students",
+        lazy="joined",
+        cascade="all, delete",
     )
+
+    # uuid do Perfil Academico do usuário que for agressista
+    academic_uuid = db.Column(
+        db.UUID(as_uuid=True), db.ForeignKey("academicprofiles.uuid"), nullable=False
+    )
+    academicprofiles = db.relationship(
+        "AcademicProfiles",
+        back_populates="students",
+        lazy="joined",
+        cascade="all, delete",
+    )
+    quiz = db.relationship("Quiz", back_populates="student", lazy="joined", cascade="save-update")
