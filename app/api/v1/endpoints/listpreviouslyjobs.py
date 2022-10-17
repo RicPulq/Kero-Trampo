@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from pydantic.types import UUID4
 from typing import List
 
-from app import schema, models
+from app import schema, models, db
 
 router = APIRouter(prefix="/listpreviouslyjobs", tags=["ListPreviouslyJobs"])
 
@@ -21,10 +21,14 @@ def get_listpreviouslyjobs_by_uuid(uuid: UUID4):
 
 @router.post("/", response_model=schema.GetListPreviouslyJobs, status_code=201)
 def create_new_listpreviouslyjobs(
-    json_data: schema.PostListPreviouslyJobs,
+    json_data: List[schema.PostListPreviouslyJobs],
 ):
-    data = models.ListPreviouslyJobs(**json_data.dict())
-    return data.create()
+    _db = db.Session()
+    for data_list in json_data:
+        data = models.ListPreviouslyJobs(**data_list.dict())
+        _db.add(data)
+    _db.commit()
+    return "OK"
 
 
 @router.put("/uuid", response_model=schema.GetListPreviouslyJobs, status_code=200)

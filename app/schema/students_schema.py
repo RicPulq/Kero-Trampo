@@ -13,6 +13,8 @@ __all__ = [
     "PostStudents",
     "GetStudents",
     "PutStudents",
+    "ShowStudents",
+    "UpdateStudent",
 ]
 
 

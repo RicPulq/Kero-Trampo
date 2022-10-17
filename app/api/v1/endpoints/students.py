@@ -82,7 +82,7 @@ def create_user_student_address_academicprofile(
     # data_quiz.answers.append()
 
 
-    return data_address.create(), data_user.create(), data_academic.create(), data_quiz.create()
+    return data_address.create(), data_user.create(), data_academic.create()
 
 
 @router.put("/user_student_address_academicprofile", status_code=200)

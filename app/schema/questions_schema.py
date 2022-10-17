@@ -7,7 +7,7 @@ __all__ = ['PostQuestions', 'GetQuestions', 'PutQuestions',]
 
 
 class PostQuestions(BaseModel):
-    questions: str | None = Field(description='Questions Documentar', max_length=255)
+    questions: str | None = Field(description='Questions Documentar', max_length=300)
 
     
 

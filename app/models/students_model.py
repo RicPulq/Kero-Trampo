@@ -53,4 +53,8 @@ class Students(db.Base):
         lazy="joined",
         cascade="all, delete",
     )
-    quiz = db.relationship("Quiz", back_populates="student", lazy="joined", cascade="save-update")
+    quiz = db.relationship(
+        "Quiz", back_populates="student", lazy="joined", cascade="all, delete"
+    )
+    list_jobsarea = db.relationship("ListJobsArea", back_populates="student", cascade="all, delete")
+    list_previouslyjobs = db.relationship("ListPreviouslyJobs", back_populates="student", cascade="save-update")

@@ -29,4 +29,13 @@ class Address(db.Base):
     relation_students = db.relationship(
         "Students", back_populates="address", lazy="joined", cascade="save-update"
     )
-    campus = db.relationship("Campus", back_populates="address", lazy="joined", cascade="save-update")
+    campus = db.relationship(
+        "Campus", back_populates="address", lazy="joined", cascade="save-update"
+    )
+    company = db.relationship(
+        "Company", back_populates="address", lazy="joined", cascade="save-update"
+    )
+
+    branch = db.relationship(
+        "BranchOffice", back_populates="address", lazy="joined", cascade="save-update"
+    )

@@ -1,31 +1,36 @@
 from app import db
 
+
 class AcademicProfiles(db.Base):
     # Perfil Acadêmico do Aluno Egressante
-    
-    #tmax 255, campo obrigátorio, Nome da Instituição de Ensino
+
+    # tmax 255, campo obrigátorio, Nome da Instituição de Ensino
     education_instution = db.Column(db.String(255), nullable=False)
 
-    #tmax 255, campo obrigátorio, Nome do Campus
+    # tmax 255, campo obrigátorio, Nome do Campus
     campus_name = db.Column(db.String(255), nullable=False)
-    
-    #tmax 255, campo obrigatório, Cidade onde fica a Instituição
+
+    # tmax 255, campo obrigatório, Cidade onde fica a Instituição
     city_instution = db.Column(db.String(255), nullable=False)
-    
-    #tmax 255, campo obrigatório, Nome do Curso realizado
+
+    # tmax 255, campo obrigatório, Nome do Curso realizado
     course_name = db.Column(db.String(255), nullable=False)
 
-    #tmax 45, campo obrigatório, Tipo da Instituição (Pública ou Privada)
+    # tmax 45, campo obrigatório, Tipo da Instituição (Pública ou Privada)
     type_institution = db.Column(db.String(45), nullable=False)
 
-    #tmax 45, campo obrigatório, Modalidade de Ensino
+    # tmax 45, campo obrigatório, Modalidade de Ensino
     teaching_modality = db.Column(db.String(45), nullable=False)
 
-    #tmax 255, campo obrigatório, Outros Curso (se já concluídos)
-    other_courses = db.Column(db.String(255),nullable=False)
-    
+    # tmax 255, campo obrigatório, Outros Curso (se já concluídos)
+    other_courses = db.Column(db.String(255), nullable=False)
 
-    academic_coefficient = db.Column(db.Integer, nullable = True)
+    # coeficiente academico, opcional
+    academic_coefficient = db.Column(db.Integer, nullable=True)
 
-    #relacionamento entre Students e AcademicProfiles
-    # students_relation = db.relationship("Students", backref="academicprofiles")
+    students = db.relationship(
+        "Students",
+        back_populates="academicprofiles",
+        lazy="joined",
+        cascade="save-update",
+    )

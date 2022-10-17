@@ -6,11 +6,7 @@ from .company_schema import GetCompany
 from .courses_schema import GetCourses, ShowCourses
 from typing import List
 
-__all__ = [
-    "PostUser",
-    "GetUser",
-    "PutUser",
-]
+__all__ = ["PostUser", "GetUser", "PutUser", "ShowUser", "UpdateUser"]
 
 
 class PostUser(BaseModel):
@@ -46,7 +42,9 @@ class ShowUser(GetUser):
     students_relation: List[ShowStudents] | None = Field(
         description="Objeto Estudante, que contem outros dois objetos: Endereço e Perfil Acadêmico"
     )
-    courses_relation: List[ShowCourses] | None = Field(description="Objeto Cursos que contem o objeto Campus (que dentro contem o objeto: Endereço)")
+    courses_relation: List[ShowCourses] | None = Field(
+        description="Objeto Cursos que contem o objeto Campus (que dentro contem o objeto: Endereço)"
+    )
 
     class Config:
         orm_mode = True

@@ -7,3 +7,5 @@ class Answers(db.Base):
 
     #boolean, Resposta do tipo booleano
     bool_answer = db.Column(db.Boolean)
+
+    quiz = db.relationship("Quiz", back_populates="answers", lazy="joined", cascade="save-update")
