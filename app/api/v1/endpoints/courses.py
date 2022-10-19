@@ -39,9 +39,10 @@ def create_new_courses(
     data_user.courses_relation.append(data_course)
     data_address.campus.append(data_campus)
     data_campus.courses.append(data_course)
+    data_pcd.pcd.append(data_course)
     
-
-    return data_user.create(), data_address.create(),data_campus.create()
+    return "A"
+    # return data_user.create(), data_address.create(),data_campus.create(), data_pcd.create()
 
 
 @router.put("/uuid", response_model=schema.GetCourses, status_code=200)

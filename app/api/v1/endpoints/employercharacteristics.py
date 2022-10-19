@@ -1,8 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic.types import UUID4
 from typing import List
 
-from app import schema, models
+from app import schema, models, db
 
 router = APIRouter(prefix="/employercharacteristics", tags=["EmployerCharacteristics"])
 
@@ -21,10 +21,21 @@ def get_employercharacteristics_by_uuid(uuid: UUID4):
 
 @router.post("/", response_model=schema.GetEmployerCharacteristics, status_code=201)
 def create_new_employercharacteristics(
-    json_data: schema.PostEmployerCharacteristics,
+    json_data: List[schema.PostEmployerCharacteristics],
 ):
-    data = models.EmployerCharacteristics(**json_data.dict())
-    return data.create()
+    try:
+        _db = db.Session()
+        for data_json in json_data:
+            data = models.EmployerCharacteristics(**data_json.dict())
+            if not data:
+                raise HTTPException(
+                    status_code=404, detail=[{"msg": "dado não encontrado"}]
+                )
+            _db.add(data)
+        _db.commit()
+        _db.refresh(data)
+    finally:
+        _db.close()
 
 
 @router.put("/uuid", response_model=schema.GetEmployerCharacteristics, status_code=200)

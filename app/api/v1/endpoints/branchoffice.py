@@ -27,6 +27,20 @@ def create_new_branchoffice(
     return data.create()
 
 
+@router.post("/v2", response_model=schema.GetBranchOffice, status_code=201)
+def create_new_branchoffice_address(
+    address: schema.PostAddress,
+    branch: schema.PostBranchOffice
+):
+
+    data_address = models.Address(**address.dict())
+    data_branch = models.BranchOffice(**branch.dict())
+
+    data_address.branch.append(data_branch)
+
+    return data_branch.create()
+
+
 @router.put("/uuid", response_model=schema.GetBranchOffice, status_code=200)
 def update_branchoffice_by_uuid(uuid: UUID4, json_data: schema.PutBranchOffice):
     return models.BranchOffice.update(uuid, **json_data.dict(exclude_unset=True))
