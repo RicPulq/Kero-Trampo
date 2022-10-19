@@ -15,7 +15,7 @@ class PostCompany(BaseModel):
     link_site: str | None = Field(description='Link_site Documentar', max_length=255)
     email: str | None = Field(description='Email Documentar', max_length=255)
     phone_number: str | None = Field(description='Phone_number Documentar', max_length=255)
-    user_uuid: UUID | None = Field(description='User_uuid Documentar')
+    # user_uuid: UUID | None = Field(description='User_uuid Documentar')
     
     
 
