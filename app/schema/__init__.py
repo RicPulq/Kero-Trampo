@@ -2,10 +2,8 @@ from .jobsprofile_schema import *
 from .address_schema import *
 from .company_schema import *
 from .courses_schema import *
-from .courses_schema import ShowCourses
 from .studentspcd_schema import *
 from .user_schema import *
-from .user_schema import ShowUser, UpdateUser
 from .jobsarea_schema import *
 from .companypcd_schema import *
 from .employercharacteristics_schema import *
@@ -17,7 +15,6 @@ from .listjobprofile_schema import *
 from .quiz_schema import *
 from .pcd_schema import *
 from .campus_schema import *
-from .campus_schema import ShowCampus
 from .branchoffice_schema import *
 from .hiringproblems_schema import *
 from .login_schema import *
@@ -29,5 +26,4 @@ from .role_schema import *
 from .fieldactivity_schema import *
 from .listcharacteristics_schema import *
 from .students_schema import *
-from .students_schema import ShowStudents, UpdateStudent
 from .answers_schema import *

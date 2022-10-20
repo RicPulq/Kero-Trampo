@@ -1,8 +1,11 @@
 from uuid import UUID
 from pydantic import BaseModel, Field
 from datetime import datetime
+from app.schema.courses_schema import GetCourses
 
-__all__ = ['PostCoursesPCD', 'GetCoursesPCD', 'PutCoursesPCD',]
+from app.schema.pcd_schema import GetPcd
+
+__all__ = ['PostCoursesPCD', 'GetCoursesPCD', 'PutCoursesPCD','ShowCouresesPCD']
 
 
 
@@ -23,6 +26,13 @@ class GetCoursesPCD(BaseModel):
     class Config:
         orm_mode = True
 
+
+class ShowCouresesPCD(GetCoursesPCD):
+    pcd: GetPcd
+    courses: GetCourses
+
+    class Config:
+        orm_mode=True
 
 
 class PutCoursesPCD(BaseModel):

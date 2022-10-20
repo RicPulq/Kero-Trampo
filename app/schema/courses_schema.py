@@ -4,11 +4,7 @@ from datetime import datetime
 
 from app.schema.campus_schema import GetCampus, ShowCampus
 
-__all__ = [
-    "PostCourses",
-    "GetCourses",
-    "PutCourses",
-]
+__all__ = ["PostCourses", "GetCourses", "PutCourses", "ShowCourses"]
 
 
 class PostCourses(BaseModel):
@@ -36,7 +32,8 @@ class PostCourses(BaseModel):
 class GetCourses(BaseModel):
     creat_at: datetime | None = Field(description="Creat_at Documentar")
     updat_at: datetime | None = Field(description="Updat_at Documentar")
-    user_uuid: str | None = Field(description="User_uuid Documentar")
+    uuid: UUID | None = Field(description="Courses_uuid Documentar")
+    user_uuid: UUID | None = Field(description="User_uuid Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     modality: str | None = Field(description="Modality Documentar", max_length=255)
     annual_graduates: int | None = Field(description="Annual_graduates Documentar")
@@ -55,7 +52,6 @@ class GetCourses(BaseModel):
     phone_number: str | None = Field(
         description="Phone_number Documentar", max_length=255
     )
-    user_uuid: UUID | None = Field(description="User_uuid Documentar")
 
     class Config:
         orm_mode = True

@@ -4,7 +4,7 @@ from datetime import datetime
 
 from app.schema.address_schema import GetAddress
 
-__all__ = ['PostCampus', 'GetCampus', 'PutCampus',]
+__all__ = ['PostCampus', 'GetCampus', 'PutCampus','ShowCampus']
 
 
 
