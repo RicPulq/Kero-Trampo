@@ -11,7 +11,7 @@ class Pcd(db.Base):
     )
 
     courses_pcd = db.relationship(
-        "CoursesPCD", back_populates="pcd", lazy="joined", cascade="save-update"
+        "CoursesPCD", back_populates="pcd", cascade="save-update"
     )
 
     company_pcd = db.relationship(

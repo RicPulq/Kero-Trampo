@@ -13,4 +13,4 @@ class Campus(db.Base):
 
     courses = db.relationship("Courses", back_populates="campus", lazy="joined", cascade="save-update")
 
-    address = db.relationship("Address", back_populates="campus", lazy="joined", cascade="save-update")
+    address = db.relationship("Address", back_populates="campus", lazy="joined", cascade="all, delete")
