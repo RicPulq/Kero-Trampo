@@ -91,4 +91,7 @@ db_init:
 
 drop_db:
 	cd app/database/ ; python3 drop_database.py
+requirements:
+	poetry export --without-hashes --format requirements.txt --output requirements.txt
+
 
