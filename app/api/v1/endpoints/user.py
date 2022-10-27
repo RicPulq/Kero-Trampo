@@ -1,6 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic.types import UUID4
 from typing import List
+from app.auth import auth
+
 from ....core.security import *
 
 from app import schema, models
@@ -28,6 +30,7 @@ def get_user_by_uuid(uuid: UUID4):
 def create_new_user(
     json_data: schema.PostUser,
 ):
+    json_data.password = get_password_hash(json_data.password)
     data = models.User(**json_data.dict())
     # hashing funcionou
     # data.password = get_password_hash(data.password)
@@ -36,9 +39,12 @@ def create_new_user(
 
 @router.put("/uuid", response_model=schema.GetUser, status_code=200)
 def update_user_by_uuid(uuid: UUID4, json_data: schema.PutUser):
+    json_data.password = get_password_hash(json_data.password)
     return models.User.update(uuid, **json_data.dict(exclude_unset=True))
 
 
 @router.delete("/uuid", status_code=204)
-def delete_user_by_uuid(uuid: UUID4):
-    return models.User.remove(uuid)
+def delete_user_by_uuid(uuid: UUID4, current_user: str = Depends((auth.Key.n4))):
+    print(current_user)
+
+    # return models.User.remove(uuid)

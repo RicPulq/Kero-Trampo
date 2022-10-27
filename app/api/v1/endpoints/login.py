@@ -8,11 +8,15 @@ router = APIRouter(tags=["Login"])
 @router.post("/login/", response_model=schema.LoginResponse)
 def login(login: schema.Login):
     """Logar"""
+    # print(login.username, login.password)
     user = models.User.login(username=login.username, password=login.password)
+    sub = {"user_uuid": str(user.uuid), "key": [user.role.permission_level]}
     response = schema.LoginResponse(
         token=auth.encode_token(
-            str(user.uuid), core.settings.ACCESS_TOKEN_EXPIRE_MINUTES
+            sub,
+            core.settings.ACCESS_TOKEN_EXPIRE_MINUTES,
         ),
-        user=user,
+        user=user.username,
     )
+
     return response

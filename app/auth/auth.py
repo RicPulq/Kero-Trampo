@@ -8,13 +8,15 @@ from app import core, models
 
 def encode_token(sub, exp):
     try:
+        print(sub)
         payload = {
             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=exp),
             "iat": datetime.datetime.utcnow(),
-            "sub": sub,
+            "sub": sub
         }
+        
         result = (
-            f"Bearer {jwt.encode(payload, core.settings.SECRET_KEY, algorithm='HS256')}"
+            f"Bearer {jwt.encode(payload,core.settings.SECRET_KEY,algorithm='HS256')}"
         )
         return result
     except:
@@ -30,7 +32,6 @@ def decode_token(Autentication, key: Optional[int] = None):
             )
         token = Autentication.split(sep=" ")
         payload = jwt.decode(token[1], core.settings.SECRET_KEY, algorithms="HS256")
-
         if "user_uuid" in payload["sub"]:
             if key not in payload["sub"]["key"]:
                 raise HTTPException(
