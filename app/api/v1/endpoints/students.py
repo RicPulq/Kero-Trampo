@@ -60,12 +60,12 @@ def create_user_student_address_academicprofile(
     user: schema.PostUser,
     address: schema.PostAddress,
     student: schema.PostStudents,
-    academic: schema.PostAcademicProfiles,
+    academic_profile: schema.PostAcademicProfiles,
     # quiz: schema.PostQuiz
 ):
     """Rota para criar toda a ficha do egressista"""
     # data_student.ad.append(models.Address(**address.dict()))
-    data_academic = models.AcademicProfiles(**academic.dict())
+    data_academic = models.AcademicProfiles(**academic_profile.dict())
     data_student = models.Students(**student.dict())
     data_address = models.Address(**address.dict())
     data_user = models.User(**user.dict())
