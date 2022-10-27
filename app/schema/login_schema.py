@@ -4,7 +4,7 @@ from app import util
 __all__ = ['Login', 'LoginResponse']
 
 class Login(BaseModel):
-    username: EmailStr
+    username: str
     password: str
 
     _normalize_nome = validator("username", allow_reuse=True)(util.normalize_lower)

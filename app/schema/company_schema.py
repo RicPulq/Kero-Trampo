@@ -2,7 +2,9 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 from datetime import datetime
 
-__all__ = ['PostCompany', 'GetCompany', 'PutCompany',]
+from app.schema.address_schema import GetAddress
+
+__all__ = ['PostCompany', 'GetCompany', 'PutCompany','ShowCompany']
 
 
 
@@ -37,11 +39,18 @@ class GetCompany(BaseModel):
         orm_mode = True
 
 
+class ShowCompany(GetCompany):
+    address: GetAddress
+
+    class Config:
+        orm_mode = True
+
+
 
 class PutCompany(BaseModel):
-    uuid: UUID | None = Field(description='Uuid Documentar')
-    creat_at: datetime | None = Field(description='Creat_at Documentar')
-    updat_at: datetime | None = Field(description='Updat_at Documentar')
+    # uuid: UUID | None = Field(description='Uuid Documentar')
+    # creat_at: datetime | None = Field(description='Creat_at Documentar')
+    # updat_at: datetime | None = Field(description='Updat_at Documentar')
     name: str | None = Field(description='Name Documentar', max_length=255)
     number_employers: int | None = Field(description='Number_employers Documentar')
     opening_hours: datetime | None = Field(description='Opening_hours Documentar')

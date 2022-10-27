@@ -1,9 +1,10 @@
 from uuid import UUID
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
+from app import util
 from datetime import datetime
 from .students_schema import UpdateStudent, ShowStudents
-from .company_schema import GetCompany
-from .courses_schema import GetCourses, ShowCourses
+from .company_schema import ShowCompany
+from .courses_schema import ShowCourses
 from typing import List
 
 __all__ = ["PostUser", "GetUser", "PutUser", "ShowUser", "UpdateUser"]
@@ -29,7 +30,7 @@ class GetUser(BaseModel):
     creat_at: datetime | None = Field(description="Creat_at Documentar")
     updat_at: datetime | None = Field(description="Updat_at Documentar")
     username: str | None = Field(description="Username Documentar", max_length=255)
-    password: str | None = Field(description="Password Documentar", max_length=255)
+    # password: str | None = Field(description="Password Documentar", max_length=255)
     active: bool | None = Field(description="Active Documentar")
     role_uuid: UUID | None = Field(description="Role_uuid Documentar")
 
@@ -38,7 +39,7 @@ class GetUser(BaseModel):
 
 
 class ShowUser(GetUser):
-    company_relation: List[GetCompany] | None
+    company_relation: List[ShowCompany] | None
     students_relation: List[ShowStudents] | None = Field(
         description="Objeto Estudante, que contem outros dois objetos: Endereço e Perfil Acadêmico"
     )
@@ -56,8 +57,10 @@ class PutUser(BaseModel):
     # updat_at: datetime | None = Field(description='Updat_at Documentar')
     username: str | None = Field(description="Username Documentar", max_length=255)
     password: str | None = Field(description="Password Documentar", max_length=255)
-    active: bool | None = Field(description="Active Documentar")
+    active: bool | None = Field(description="estado do usuário, ativo ou desativado")
     role_uuid: UUID | None = Field(description="Role_uuid Documentar")
+
+    _normalize_nome = validator("username", allow_reuse=True)(util.normalize_lower)
 
 
 class UpdateUser(PutUser):
