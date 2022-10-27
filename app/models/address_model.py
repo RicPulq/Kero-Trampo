@@ -27,15 +27,14 @@ class Address(db.Base):
     cep = db.Column(db.String(8), nullable=True)
 
     relation_students = db.relationship(
-        "Students", back_populates="address", lazy="joined", cascade="save-update"
+        "Students", back_populates="address", cascade="save-update"
     )
     campus = db.relationship(
-        "Campus", back_populates="address", lazy="joined", cascade="save-update"
+        "Campus", back_populates="address", cascade="save-update"
     )
     company = db.relationship(
-        "Company", back_populates="address", lazy="joined", cascade="save-update"
+        "Company", back_populates="address", cascade="save-update"
     )
-
     branch = db.relationship(
-        "BranchOffice", back_populates="address", lazy="joined", cascade="save-update"
+        "BranchOffice", back_populates="address", cascade="save-update"
     )

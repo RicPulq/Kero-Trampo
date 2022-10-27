@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from app import db, core
+from app.core.security import get_password_hash
 
 
 class User(db.Base):
@@ -18,6 +19,7 @@ class User(db.Base):
     courses_relation = db.relationship(
         "Courses", back_populates="user", lazy="joined", cascade="all,delete"
     )
+    role = db.relationship("Role", back_populates="user", cascade="save-update", lazy="joined")
 
     @classmethod
     def login(self, username: str, password: str):
