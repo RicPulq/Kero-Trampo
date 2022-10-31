@@ -11,6 +11,10 @@ def login(login: schema.Login):
     # print(login.username, login.password)
     user = models.User.login(username=login.username, password=login.password)
     sub = {"user_uuid": str(user.uuid), "key": [user.role.permission_level]}
+    
+    for i in range(1, user.role.permission_level):
+        sub["key"].append(i)
+
     response = schema.LoginResponse(
         token=auth.encode_token(
             sub,
