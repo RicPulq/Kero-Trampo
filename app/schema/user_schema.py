@@ -23,6 +23,7 @@ class PostUser(BaseModel):
     role_uuid: UUID | None = Field(
         description="Uuid do nível de permissão de acesso do usuário"
     )
+    _normalize_nome = validator("username", allow_reuse=True)(util.normalize_lower)
 
 
 class GetUser(BaseModel):
