@@ -8,7 +8,6 @@ from app import core, models
 
 def encode_token(sub, exp):
     try:
-        print(sub)
         payload = {
             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=exp),
             "iat": datetime.datetime.utcnow(),
@@ -102,5 +101,5 @@ class Key:
 
     # vefifica se o usuario tem o nivel de permissao minima N1
     async def n1(Autentication: Optional[str] = Header(None)):
-        payload = decode_token(Autentication)
+        payload = decode_token(Autentication,1)
         return payload
