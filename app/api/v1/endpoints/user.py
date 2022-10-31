@@ -32,19 +32,17 @@ def create_new_user(
 ):
     json_data.password = get_password_hash(json_data.password)
     data = models.User(**json_data.dict())
-    # hashing funcionou
-    # data.password = get_password_hash(data.password)
     return data.create()
 
 
 @router.put("/uuid", response_model=schema.GetUser, status_code=200)
-def update_user_by_uuid(uuid: UUID4, json_data: schema.PutUser):
+def update_user_by_uuid(uuid: UUID4, json_data: schema.PutUser, current_user = Depends(auth.Key.n1)):
+    print(current_user)
     json_data.password = get_password_hash(json_data.password)
     return models.User.update(uuid, **json_data.dict(exclude_unset=True))
 
 
 @router.delete("/uuid", status_code=204)
-def delete_user_by_uuid(uuid: UUID4, current_user: str = Depends((auth.Key.n4))):
+def delete_user_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n4)):
     print(current_user)
-
-    # return models.User.remove(uuid)
+    return models.User.remove(uuid)
