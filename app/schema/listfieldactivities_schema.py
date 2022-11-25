@@ -7,9 +7,11 @@ __all__ = ['PostListFieldActivities', 'GetListFieldActivities', 'PutListFieldAct
 
 
 class PostListFieldActivities(BaseModel):
-    company_uuid: str | None = Field(description='Company_uuid Documentar')
-    activity_uuid: str | None = Field(description='Activity_uuid Documentar')
-
+    # company_uuid: str | None = Field(description='Company_uuid Documentar')
+    field_activity_uuid: UUID | None = Field(description='Activity_uuid Documentar')
+    others: str | None = Field(
+        description="Onde o usuário vai declara uma opção que está fora da lista pré-populada"
+    )
     
 
 class GetListFieldActivities(BaseModel):

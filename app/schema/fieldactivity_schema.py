@@ -7,7 +7,7 @@ __all__ = ['PostFieldActivity', 'GetFieldActivity', 'PutFieldActivity',]
 
 
 class PostFieldActivity(BaseModel):
-    activity: str | None = Field(description='Activity Documentar', max_length=255)
+    activity: UUID | None = Field(description='Activity Documentar')
 
     
 

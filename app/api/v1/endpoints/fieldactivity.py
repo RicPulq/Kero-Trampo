@@ -19,7 +19,7 @@ def get_paginate_fieldactivity_by_page_per_page(page:int, per_page: int):
 def get_fieldactivity_by_uuid(uuid: UUID4):
     return models.FieldActivity.get(uuid)
 
-@router.post("/", response_model=List[schema.GetFieldActivity], status_code=201)
+@router.post("/", response_model=schema.GetFieldActivity, status_code=201)
 def create_new_fieldactivity(
     json_data: List[schema.PostFieldActivity],
 ):
@@ -32,7 +32,7 @@ def create_new_fieldactivity(
                     status_code=404, detail=[{"msg": "dado não encontrado"}]
                 )
             _db.add(data)
-        _db.flush()
+        _db.commit()
         _db.refresh(data)
     finally:
         _db.close()
