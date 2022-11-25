@@ -14,7 +14,7 @@ __all__ = [
 
 
 class PostListHiringProblems(BaseModel):
-    company_uuid: UUID | None = Field(description="Company_uuid Documentar")
+    # company_uuid: UUID | None = Field(description="Company_uuid Documentar")
     hiring_problems_uuid: UUID | None = Field(description="Problem_uuid Documentar")
     others: str | None = Field(
         description="Onde o usuário vai declara uma opção que está fora da lista pré-populada"

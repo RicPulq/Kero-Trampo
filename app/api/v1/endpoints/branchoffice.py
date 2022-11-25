@@ -15,7 +15,7 @@ def get_all_branchoffice():
 def get_paginate_branchoffice_by_page_per_page(page:int, per_page: int):
     return models.BranchOffice.get_paginate(page, per_page)
 
-@router.get("/uuid", response_model=schema.GetBranchOffice, status_code=200)
+@router.get("/uuid", response_model=schema.ShowBranch, status_code=200)
 def get_branchoffice_by_uuid(uuid: UUID4):
     return models.BranchOffice.get(uuid)
 
@@ -35,7 +35,6 @@ def create_new_branchoffice_address(
 
     data_address = models.Address(**address.dict())
     data_branch = models.BranchOffice(**branch.dict())
-
     data_address.branch.append(data_branch)
 
     return data_branch.create()

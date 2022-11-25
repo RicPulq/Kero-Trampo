@@ -17,7 +17,7 @@ def get_paginate_company_by_page_per_page(page: int, per_page: int):
     return models.Company.get_paginate(page, per_page)
 
 
-@router.get("/uuid", response_model=schema.GetCompany, status_code=200)
+@router.get("/uuid", response_model=schema.ShowCompany, status_code=200)
 def get_company_by_uuid(uuid: UUID4):
     return models.Company.get(uuid)
 
@@ -35,16 +35,35 @@ def create_company_with_all(
     user: schema.PostUser,
     address: schema.PostAddress,
     company: schema.PostCompany,
+    address_branch: schema.PostAddress,
+    branch: schema.PostBranchOffice,
+    hiring_problems: schema.PostListHiringProblems,
+    characteristcs: schema.PostListCharacteristics,
+    jobsprofile: schema.PostListJobProfile,
+    fieldactivity: schema.PostListFieldActivities
+
 ):
     """Para criar uma filial, usar rota BranchOffice"""
     data_user = models.User(**user.dict())
     data_company = models.Company(**company.dict())
     data_address = models.Address(**address.dict())
+    data_branch = models.BranchOffice(**branch.dict())
+    data_address_branch = models.Address(**address_branch.dict())
+    data_hiring_problems = models.ListHiringProblems(**hiring_problems.dict())
+    data_characteristcs = models.ListCharacteristics(**characteristcs.dict())
+    data_jobsprofile = models.ListJobProfile(**jobsprofile.dict())
+    data_field_activity = models.ListFieldActivities(**fieldactivity.dict())
 
     data_user.company_relation.append(data_company)
     data_address.company.append(data_company)
+    data_company.branch.append(data_branch)
+    data_address_branch.branch.append(data_branch)
+    data_company.list_hiring_problems.append(data_hiring_problems)
+    data_company.list_characteristic.append(data_characteristcs)
+    data_company.list_job_profile.append(data_jobsprofile)
+    data_company.list_field_activities.append(data_field_activity)
 
-    return data_user.create(), data_address.create()
+    return data_user.create(), data_address.create(), data_address_branch.create()
 
 
 @router.put("/uuid", response_model=schema.GetCompany, status_code=200)

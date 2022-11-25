@@ -45,17 +45,20 @@ class Company(db.Base):
         "Address", back_populates="company", lazy="joined", cascade="all,delete"
     )
     branch = db.relationship(
-        "BranchOffice", back_populates="company", cascade="all, delete"
+        "BranchOffice", back_populates="company", cascade="all, delete", lazy="joined"
     )
     company_pcd = db.relationship(
-        "CompanyPcd", back_populates="company", cascade="save-update"
+        "CompanyPcd", back_populates="company", cascade="all, delete"
     )
     list_characteristic = db.relationship(
-        "ListCharacteristics", back_populates="company", cascade="save-update"
+        "ListCharacteristics", back_populates="company", cascade="all, delete"
     )
     list_hiring_problems = db.relationship(
-        "ListHiringProblems", back_populates="company", cascade="save-update"
+        "ListHiringProblems", back_populates="company", cascade="all, delete"
     )
     list_job_profile = db.relationship(
-        "ListJobProfile", back_populates="company", cascade="save-update"
+        "ListJobProfile", back_populates="company", cascade="all, delete"
+    )
+    list_field_activities = db.relationship(
+        "ListFieldActivities", back_populates="company", cascade="all, delete"
     )

@@ -15,7 +15,7 @@ __all__ = [
 
 
 class PostListCharacteristics(BaseModel):
-    company_uuid: UUID | None = Field(description="Company_uuid Documentar")
+    # company_uuid: UUID | None = Field(description="Company_uuid Documentar")
     characteristic_uuid: UUID | None = Field(
         description="Characteristic_uuid Documentar"
     )

@@ -3,12 +3,13 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 
 from app.schema.company_schema import GetCompany
+from app.schema.address_schema import GetAddress
 
 __all__ = ["PostBranchOffice", "GetBranchOffice", "PutBranchOffice", "ShowBranch"]
 
 
 class PostBranchOffice(BaseModel):
-    company_uuid: UUID | None = Field(description="Company_uuid Documentar")
+    # company_uuid: UUID | None = Field(description="Company_uuid Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     # address_uuid: UUID | None = Field(description='Address_uuid Documentar')
 
@@ -26,6 +27,7 @@ class GetBranchOffice(BaseModel):
 
 
 class ShowBranch(GetBranchOffice):
+    address: GetAddress
     company: GetCompany
 
     class Config:
