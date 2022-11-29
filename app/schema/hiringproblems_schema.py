@@ -24,7 +24,7 @@ class GetHiringProblems(BaseModel):
 
 
 class PutHiringProblems(BaseModel):
-    uuid: UUID | None = Field(description='Uuid Documentar')
-    creat_at: datetime | None = Field(description='Creat_at Documentar')
-    updat_at: datetime | None = Field(description='Updat_at Documentar')
+    # uuid: UUID | None = Field(description='Uuid Documentar')
+    # creat_at: datetime | None = Field(description='Creat_at Documentar')
+    # updat_at: datetime | None = Field(description='Updat_at Documentar')
     problem: str | None = Field(description='Problem Documentar', max_length=255)

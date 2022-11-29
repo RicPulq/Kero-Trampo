@@ -15,7 +15,7 @@ class PostUser(BaseModel):
         description="Username: email do usuário ", max_length=255
     )
     password: str | None = Field(
-        description="Password: hash de 255 caracteres", max_length=255
+        description="Password: mínimo 6 caracteres", max_length=255
     )
     active: bool | None = Field(
         description="Active: conta ativa ou não, para previnir spam de contas com o mesmo email"

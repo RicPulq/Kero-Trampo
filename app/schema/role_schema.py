@@ -27,7 +27,7 @@ class GetRole(BaseModel):
 
 class PutRole(BaseModel):
 
-    creat_at: datetime | None = Field(description='Creat_at Documentar')
-    updat_at: datetime | None = Field(description='Updat_at Documentar')
+    # creat_at: datetime | None = Field(description='Creat_at Documentar')
+    # updat_at: datetime | None = Field(description='Updat_at Documentar')
     name: str | None = Field(description='Name Documentar', max_length=None)
     permission_level: int | None = Field(description='Permission_level Documentar')

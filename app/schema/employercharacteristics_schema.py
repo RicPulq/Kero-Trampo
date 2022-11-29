@@ -24,7 +24,7 @@ class GetEmployerCharacteristics(BaseModel):
 
 
 class PutEmployerCharacteristics(BaseModel):
-    uuid: UUID | None = Field(description='Uuid Documentar')
-    creat_at: datetime | None = Field(description='Creat_at Documentar')
-    updat_at: datetime | None = Field(description='Updat_at Documentar')
+    # uuid: UUID | None = Field(description='Uuid Documentar')
+    # creat_at: datetime | None = Field(description='Creat_at Documentar')
+    # updat_at: datetime | None = Field(description='Updat_at Documentar')
     characteristc: str | None = Field(description='Characteristc Documentar', max_length=255)

@@ -18,8 +18,8 @@ class GetListFieldActivities(BaseModel):
     uuid: UUID | None = Field(description='Uuid Documentar')
     creat_at: datetime | None = Field(description='Creat_at Documentar')
     updat_at: datetime | None = Field(description='Updat_at Documentar')
-    company_uuid: str | None = Field(description='Company_uuid Documentar')
-    activity_uuid: str | None = Field(description='Activity_uuid Documentar')
+    company_uuid: UUID | None = Field(description='Company_uuid Documentar')
+    activity_uuid: UUID | None = Field(description='Activity_uuid Documentar')
 
 
     class Config:
@@ -28,8 +28,8 @@ class GetListFieldActivities(BaseModel):
 
 
 class PutListFieldActivities(BaseModel):
-    uuid: UUID | None = Field(description='Uuid Documentar')
-    creat_at: datetime | None = Field(description='Creat_at Documentar')
-    updat_at: datetime | None = Field(description='Updat_at Documentar')
-    company_uuid: str | None = Field(description='Company_uuid Documentar')
-    activity_uuid: str | None = Field(description='Activity_uuid Documentar')
+    # uuid: UUID | None = Field(description='Uuid Documentar')
+    # creat_at: datetime | None = Field(description='Creat_at Documentar')
+    # updat_at: datetime | None = Field(description='Updat_at Documentar')
+    company_uuid: UUID | None = Field(description='Company_uuid Documentar')
+    activity_uuid: UUID | None = Field(description='Activity_uuid Documentar')
