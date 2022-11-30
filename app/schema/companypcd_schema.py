@@ -14,7 +14,7 @@ __all__ = [
 
 
 class PostCompanyPcd(BaseModel):
-    company_uuid: UUID | None = Field(description="Company_uuid Documentar")
+    # company_uuid: UUID | None = Field(description="Company_uuid Documentar")
     pcd_uuid: UUID | None = Field(description="Pcd_uuid Documentar")
 
 
