@@ -40,8 +40,8 @@ def create_company_with_all(
     hiring_problems: schema.PostListHiringProblems,
     characteristcs: schema.PostListCharacteristics,
     jobsprofile: schema.PostListJobProfile,
-    fieldactivity: schema.PostListFieldActivities
-
+    fieldactivity: schema.PostListFieldActivities,
+    pcd: schema.PostCompanyPcd
 ):
     """Para criar uma filial, usar rota BranchOffice"""
     data_user = models.User(**user.dict())
@@ -53,6 +53,7 @@ def create_company_with_all(
     data_characteristcs = models.ListCharacteristics(**characteristcs.dict())
     data_jobsprofile = models.ListJobProfile(**jobsprofile.dict())
     data_field_activity = models.ListFieldActivities(**fieldactivity.dict())
+    data_pcd = models.CompanyPcd(**pcd.dict())
 
     data_user.company_relation.append(data_company)
     data_address.company.append(data_company)
@@ -62,6 +63,7 @@ def create_company_with_all(
     data_company.list_characteristic.append(data_characteristcs)
     data_company.list_job_profile.append(data_jobsprofile)
     data_company.list_field_activities.append(data_field_activity)
+    data_company.company_pcd.append(data_pcd)
 
     return data_user.create(), data_address.create(), data_address_branch.create()
 
