@@ -10,7 +10,7 @@ __all__ = ['PostCoursesPCD', 'GetCoursesPCD', 'PutCoursesPCD','ShowCouresesPCD']
 
 
 class PostCoursesPCD(BaseModel):
-    courses_uuid: UUID | None = Field(description='Courses_uuid Documentar')
+    # courses_uuid: UUID | None = Field(description='Courses_uuid Documentar')
     pcd_uuid: UUID | None = Field(description='Pcd_uuid Documentar')
 
 
