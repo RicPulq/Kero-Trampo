@@ -60,8 +60,8 @@ class Students(db.Base):
         "ListJobsArea", back_populates="student", cascade="all, delete"
     )
     list_previouslyjobs = db.relationship(
-        "ListPreviouslyJobs", back_populates="student", cascade="save-update"
+        "ListPreviouslyJobs", back_populates="student", cascade="all, delete"
     )
     students_pcd = db.relationship(
-        "StudentsPcd", back_populates="students", cascade="save-update"
+        "StudentsPcd", back_populates="students", cascade="all, delete"
     )

@@ -1,8 +1,8 @@
-from tkinter import W
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic.types import UUID4
 from typing import List
 from app import db
+from app.auth import auth
 
 from app import schema, models
 
@@ -33,7 +33,10 @@ def create_new_students(
 
 
 @router.put("/uuid", response_model=schema.GetStudents, status_code=200)
-def update_students_by_uuid(uuid: UUID4, json_data: schema.PutStudents):
+def update_students_by_uuid(
+    uuid: UUID4, json_data: schema.PutStudents, current_user: str = Depends(auth.Key.n1)
+):
+    print(current_user)
     return models.Students.update(uuid, **json_data.dict(exclude_unset=True))
 
 
@@ -50,77 +53,35 @@ def delete_students_by_uuid(uuid: UUID4):
 
 
 @router.delete("/delete_User_Student", status_code=200)
-def delete_user_student_address(uuid: UUID4):
+def delete_user_student_and_all(uuid: UUID4, current_user: str = Depends(auth.Key.n5)):
+    print(current_user)
     """Utilizar o UUID do Student"""
     return models.User.remove(uuid)
 
 
-@router.post("/user_student_address_academicprofile", status_code=200)
-def create_user_student_address_academicprofile(
+@router.post("/student_with_all", status_code=200)
+def create_student_with_all(
     user: schema.PostUser,
     address: schema.PostAddress,
     student: schema.PostStudents,
     academic_profile: schema.PostAcademicProfiles,
-    # quiz: schema.PostQuiz
+    quiz: List[schema.PostQuiz],
+    jobs_area: List[schema.PostListJobsArea],
+    prev_jobs: List[schema.PostListPreviouslyJobs]
 ):
     """Rota para criar toda a ficha do egressista"""
     # data_student.ad.append(models.Address(**address.dict()))
-    data_academic = models.AcademicProfiles(**academic_profile.dict())
     data_student = models.Students(**student.dict())
-    data_address = models.Address(**address.dict())
-    data_user = models.User(**user.dict())
-    # data_quiz = models.Quiz(**quiz.dict())
-
-    data_academic.students.append(data_student)
-    data_address.relation_students.append(data_student)
-    data_user.students_relation.append(data_student)
-
-    print(data_academic,data_address,data_student)
-
-    # data_quiz.student.append()
-    # data_quiz.questions.append()
-    # data_quiz.answers.append()
+    
+    data_student.address = models.Address(**address.dict())
+    data_student.academicprofiles = models.AcademicProfiles(**academic_profile.dict())
+    data_student.user = models.User(**user.dict())
+    for data_quiz in quiz:
+        data_student.quiz.append(models.Quiz(**data_quiz.dict()))
+    for data_jobsarea in jobs_area:
+        data_student.list_jobsarea.append(models.ListJobsArea(**data_jobsarea.dict()))
+    for data_prevjobs in prev_jobs:
+        data_student.list_previouslyjobs.append(models.ListPreviouslyJobs(**data_prevjobs.dict()))
 
 
-    return data_address.create(), data_user.create(), data_academic.create()
-
-
-@router.put("/user_student_address_academicprofile", status_code=200)
-def update_user_student_address_academicprofile(
-    uuid: UUID4,
-    # data: schema.UpdateUser,
-    user: schema.PutUser,
-    student: schema.PutStudents,
-):
-
-    try:
-        _db = db.Session()
-        data_user = _db.query(models.User).filter_by(uuid=uuid).first()
-        if not data_user:
-            raise HTTPException(
-                status_code=404, detail=[{"msg": "Dado não encontrado"}]
-            )
-        print(data_user)
-        for key, value in user.dict(exclude_unset=True).items():
-            setattr(data_user, key, value)
-        print("=" * 10)
-
-        data_student = _db.query(models.Students).filter_by(user_uuid=uuid).first()
-
-        if not data_student:
-            raise HTTPException(
-                status_code=404, detail=[{"msg": "Dado não encontrado"}]
-            )
-        for key, value in student.dict(exclude_unset=True).items():
-            setattr(data_student, key, value)
-
-        _db.add(data_user)
-        _db.add(data_student)
-        _db.commit()
-        _db.refresh(data_user)
-    except:
-        _db.rollback()
-    finally:
-        _db.close()
-
-    return data_user
+    return data_student.create()
