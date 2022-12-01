@@ -28,23 +28,18 @@ def create_new_courses(
     address: schema.PostAddress,
     campus: schema.PostCampus,
     course: schema.PostCourses,
-    pcd: schema.PostCoursesPCD
+    pcd: List[schema.PostCoursesPCD]
 ):
-    data_user = models.User(**user.dict())
     data_course = models.Courses(**course.dict())
-    data_campus = models.Campus(**campus.dict())
-    data_address = models.Address(**address.dict())
-    data_pcd = models.CoursesPCD(**pcd.dict())
 
-    try:
-        data_user.courses_relation.append(data_course)
-        data_address.campus.append(data_campus)
-        data_campus.courses.append(data_course)
-        data_course.coursespcd.append(data_pcd)
-    finally:
-        data_user.create(), data_address.create(),data_campus.create()
+    data_course.user = models.User(**user.dict())
+    data_course.campus = models.Campus(**campus.dict())
+    data_course.campus.address = models.Address(**address.dict())
+    for data_pcd in pcd:
+        data_course.coursespcd.append(models.CoursesPCD(**data_pcd.dict()))
+
     # return "A"
-    return "Cadastro realizado com sucesso"
+    return data_course.create()
 
 
 @router.put("/uuid", response_model=schema.GetCourses, status_code=200)
