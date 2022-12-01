@@ -10,7 +10,7 @@ __all__ = ['PostListJobsArea', 'GetListJobsArea', 'PutListJobsArea','ShowList']
 
 
 class PostListJobsArea(BaseModel):
-    student_uuid: UUID | None = Field(description='Student_uuid Documentar')
+    # student_uuid: UUID | None = Field(description='Student_uuid Documentar')
     jobs_area_uuid: UUID | None = Field(description='Jobs_area_uuid Documentar')
     others: str | None = Field(description="Onde o usuário vai declara uma opção que está fora da lista pré-populada")
 

@@ -7,7 +7,7 @@ __all__ = ['PostListPreviouslyJobs', 'GetListPreviouslyJobs', 'PutListPreviously
 
 
 class PostListPreviouslyJobs(BaseModel):
-    student_uuid: UUID | None = Field(description='Student_uuid Documentar')
+    # student_uuid: UUID | None = Field(description='Student_uuid Documentar')
     prev_job_uuid: UUID | None = Field(description='Prev_job_uuid Documentar')
     others: str | None = Field(description='Onde o usuário vai declara uma opção que está fora da lista pré-populada')
 

@@ -10,7 +10,7 @@ __all__ = ["PostQuiz", "GetQuiz", "PutQuiz", "ShowQuiz"]
 
 
 class PostQuiz(BaseModel):
-    students_uuid: UUID | None = Field(description="Student_uuid Documentar")
+    # students_uuid: UUID | None = Field(description="Student_uuid Documentar")
     questions_uuid: UUID | None = Field(description="Question_uuid Documentar")
     answers_uuid: UUID | None = Field(description="Answer_uuid Documentar")
     others: str | None = Field(description="Outros")
