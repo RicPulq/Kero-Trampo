@@ -35,38 +35,33 @@ def create_company_with_all(
     user: schema.PostUser,
     address: schema.PostAddress,
     company: schema.PostCompany,
-    address_branch: schema.PostAddress,
-    branch: schema.PostBranchOffice,
-    hiring_problems: schema.PostListHiringProblems,
-    characteristcs: schema.PostListCharacteristics,
-    jobsprofile: schema.PostListJobProfile,
-    fieldactivity: schema.PostListFieldActivities,
-    pcd: schema.PostCompanyPcd
+    # address_branch: schema.PostAddress,
+    # branch: List[schema.PostBranchOffice],
+    hiring_problems: List[schema.PostListHiringProblems],
+    characteristcs: List[schema.PostListCharacteristics],
+    jobsprofile: List[schema.PostListJobProfile],
+    fieldactivity: List[schema.PostListFieldActivities],
+    pcd: List[schema.PostCompanyPcd]
 ):
     """Para criar uma filial, usar rota BranchOffice"""
-    data_user = models.User(**user.dict())
     data_company = models.Company(**company.dict())
-    data_address = models.Address(**address.dict())
-    data_branch = models.BranchOffice(**branch.dict())
-    data_address_branch = models.Address(**address_branch.dict())
-    data_hiring_problems = models.ListHiringProblems(**hiring_problems.dict())
-    data_characteristcs = models.ListCharacteristics(**characteristcs.dict())
-    data_jobsprofile = models.ListJobProfile(**jobsprofile.dict())
-    data_field_activity = models.ListFieldActivities(**fieldactivity.dict())
-    data_pcd = models.CompanyPcd(**pcd.dict())
+    data_company.user = models.User(**user.dict())
+    data_company.address = models.Address(**address.dict())
+    # for data_branch in branch:
+    #     data_company.branch.append(models.BranchOffice(**data_branch.dict()))
+    #     data_company.branch.address=(models.Address(**address_branch.dict()))
+    for data_hproblems in hiring_problems:
+        data_company.list_hiring_problems.append(models.ListHiringProblems(**data_hproblems.dict()))
+    for data_characteristics in characteristcs:
+        data_company.list_characteristic.append(models.ListCharacteristics(**data_characteristics.dict()))
+    for data_jobsprofile in jobsprofile:
+        data_company.list_job_profile.append(models.ListJobProfile(**data_jobsprofile.dict()))
+    for data_fieldactivity in fieldactivity:
+        data_company.list_field_activities.append(models.ListFieldActivities(**data_fieldactivity.dict()))
+    for data_pcd in pcd:
+        data_company.company_pcd.append(models.CompanyPcd(**data_pcd.dict()))
 
-    data_user.company_relation.append(data_company)
-    data_address.company.append(data_company)
-    data_company.branch.append(data_branch)
-    data_address_branch.branch.append(data_branch)
-    data_company.list_hiring_problems.append(data_hiring_problems)
-    data_company.list_characteristic.append(data_characteristcs)
-    data_company.list_job_profile.append(data_jobsprofile)
-    data_company.list_field_activities.append(data_field_activity)
-    data_company.company_pcd.append(data_pcd)
-
-    return data_user.create(), data_address.create(), data_address_branch.create()
-
+    return data_company.create()
 
 @router.put("/uuid", response_model=schema.GetCompany, status_code=200)
 def update_company_by_uuid(uuid: UUID4, json_data: schema.PutCompany):
