@@ -23,7 +23,7 @@ from .validators import (
     cnpj_validate,
     cnpj_cpf
 )
-from .emails import send_new_account_email, send_reset_password_email
+from .emails import send_new_account_email, send_reset_password_email, send_email
 
 from .create_schema import *
 from .create_endpoints import *

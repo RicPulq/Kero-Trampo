@@ -4,34 +4,41 @@ from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from typing import Any, Dict, Optional
 
+
 import emails
 from emails.template import JinjaTemplate
-
+from fastapi import HTTPException
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from app import core
+import smtplib
 
 from app.core.config import settings
 
 
+def send_email(email_reciver: str, subject: str, body=str) -> any:
+    try:
+        conteudo = f"{body}"
+        password = core.config.settings.SMTP_PASSWORD
+        msg = MIMEMultipart()
+        msg["Subject"] = f"{subject}"
+        msg["From"] = core.config.settings.SMTP_USER
+        msg["To"] = email_reciver
+        msg.attach(MIMEText(conteudo, "html"))
 
-def send_email(
-    email_to: str,
-    subject_template: str = "",
-    html_template: str = "",
-    environment: Dict[str, Any] = {},
-) -> None:
-    message = emails.Message(
-        subject=JinjaTemplate(subject_template),
-        html=JinjaTemplate(html_template),
-        mail_from=(settings.EMAILS_FROM_NAME, settings.EMAILS_FROM_EMAIL),
-    )
-    smtp_options = {"host": settings.SMTP_HOST, "port": settings.SMTP_PORT}
-    if settings.SMTP_TLS:
-        smtp_options["tls"] = True
-    if settings.SMTP_USER:
-        smtp_options["user"] = settings.SMTP_USER
-    if settings.SMTP_PASSWORD:
-        smtp_options["password"] = settings.SMTP_PASSWORD
-    response = message.send(to=email_to, render=environment, smtp=smtp_options)
-    logging.info(f"send email result: {response}")
+        with smtplib.SMTP_SSL(
+            host="smtp.gmail.com", timeout=5, port=core.config.settings.SMTP_PORT
+        ) as smtp:
+            smtp.ehlo()
+            smtp.starttls
+            smtp.login(msg["From"], password)
+            smtp.sendmail(msg["From"], [msg["To"]], msg.as_string().encode("utf-8"))
+            smtp.quit()
+    except smtplib.SMTPException as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Não foi possível enviar o email para {email_reciver}",
+        )
 
 
 def send_reset_password_email(email_to: str, email: str, token: str) -> None:
