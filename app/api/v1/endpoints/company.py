@@ -2,7 +2,10 @@ from fastapi import APIRouter
 from pydantic.types import UUID4
 from typing import List
 
-from app import schema, models
+from ....core.security import get_password_hash
+import app.templates as templates
+import app.util as util
+from app import schema, models, core
 
 router = APIRouter(prefix="/company", tags=["Company"])
 
@@ -39,11 +42,12 @@ def create_company_with_all(
     # branch: List[schema.PostBranchOffice],
     hiring_problems: List[schema.PostListHiringProblems],
     characteristcs: List[schema.PostListCharacteristics],
-    jobsprofile: List[schema.PostListJobProfile],
+    jobsprofile: List[schema.PostListJobProfile] | None,
     fieldactivity: List[schema.PostListFieldActivities],
-    pcd: List[schema.PostCompanyPcd]
+    pcd: List[schema.PostCompanyPcd] | None,
 ):
     """Para criar uma filial, usar rota BranchOffice"""
+    user.password = get_password_hash(user.password)
     data_company = models.Company(**company.dict())
     data_company.user = models.User(**user.dict())
     data_company.address = models.Address(**address.dict())
@@ -51,17 +55,30 @@ def create_company_with_all(
     #     data_company.branch.append(models.BranchOffice(**data_branch.dict()))
     #     data_company.branch.address=(models.Address(**address_branch.dict()))
     for data_hproblems in hiring_problems:
-        data_company.list_hiring_problems.append(models.ListHiringProblems(**data_hproblems.dict()))
+        data_company.list_hiring_problems.append(
+            models.ListHiringProblems(**data_hproblems.dict())
+        )
     for data_characteristics in characteristcs:
-        data_company.list_characteristic.append(models.ListCharacteristics(**data_characteristics.dict()))
-    for data_jobsprofile in jobsprofile:
-        data_company.list_job_profile.append(models.ListJobProfile(**data_jobsprofile.dict()))
+        data_company.list_characteristic.append(
+            models.ListCharacteristics(**data_characteristics.dict())
+        )
+    if jobsprofile:
+        for data_jobsprofile in jobsprofile:
+            data_company.list_job_profile.append(
+                models.ListJobProfile(**data_jobsprofile.dict())
+            )
     for data_fieldactivity in fieldactivity:
-        data_company.list_field_activities.append(models.ListFieldActivities(**data_fieldactivity.dict()))
-    for data_pcd in pcd:
-        data_company.company_pcd.append(models.CompanyPcd(**data_pcd.dict()))
+        data_company.list_field_activities.append(
+            models.ListFieldActivities(**data_fieldactivity.dict())
+        )
+    if pcd:
+        for data_pcd in pcd:
+            data_company.company_pcd.append(models.CompanyPcd(**data_pcd.dict()))
 
-    return data_company.create()
+    return data_company.create(), util.send_email(
+        company.email, core.settings.PROJECT_NAME, templates.conteudo
+    )
+
 
 @router.put("/uuid", response_model=schema.GetCompany, status_code=200)
 def update_company_by_uuid(uuid: UUID4, json_data: schema.PutCompany):

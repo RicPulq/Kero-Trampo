@@ -2,7 +2,10 @@ from fastapi import APIRouter
 from pydantic.types import UUID4
 from typing import List
 
-from app import schema, models
+from ....core.security import get_password_hash
+import app.templates as templates
+import app.util as util
+from app import schema, models, core
 
 router = APIRouter(prefix="/courses", tags=["Courses"])
 
@@ -28,8 +31,9 @@ def create_new_courses(
     address: schema.PostAddress,
     campus: schema.PostCampus,
     course: schema.PostCourses,
-    pcd: List[schema.PostCoursesPCD]
+    pcd: List[schema.PostCoursesPCD] | None,
 ):
+    user.password = get_password_hash(user.password)
     data_course = models.Courses(**course.dict())
 
     data_course.user = models.User(**user.dict())
@@ -38,8 +42,9 @@ def create_new_courses(
     for data_pcd in pcd:
         data_course.coursespcd.append(models.CoursesPCD(**data_pcd.dict()))
 
-    # return "A"
-    return data_course.create()
+    return data_course.create(), util.send_email(
+        course.email, core.settings.PROJECT_NAME, templates.conteudo
+    )
 
 
 @router.put("/uuid", response_model=schema.GetCourses, status_code=200)
