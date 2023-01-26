@@ -1,9 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic.types import UUID4
 from typing import List
 
 from ....core.security import get_password_hash
 import app.templates as templates
+from app.auth import auth
 import app.util as util
 from app import schema, models, core
 
@@ -53,5 +54,23 @@ def update_courses_by_uuid(uuid: UUID4, json_data: schema.PutCourses):
 
 
 @router.delete("/uuid", status_code=204)
-def delete_courses_by_uuid(uuid: UUID4):
-    return models.Courses.remove(uuid)
+def delete_courses_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n2)):
+    print(current_user)
+    try:
+        if current_user["user_uuid"] == str(uuid) or 5 in current_user["key"]:
+            return models.User.remove(uuid)
+        else:
+            raise HTTPException(
+            status_code=401,
+            detail=[
+                {"msg": "Desculpe Você nao tem Permissão, Chave de acesso expirada!"}
+            ],
+        )
+    except:
+        raise HTTPException(
+            status_code=401,
+            detail=[
+                {"msg": "Desculpe Você nao tem Permissão, Chave de acesso expirada!"}
+            ],
+        )
+    

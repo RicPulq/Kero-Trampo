@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic.types import UUID4
 from typing import List
+
 from ....core.security import get_password_hash
 import app.templates as templates
 import app.util as util
@@ -42,22 +43,25 @@ def update_students_by_uuid(
 
 
 @router.delete("/uuid", status_code=204)
-def delete_students_by_uuid(uuid: UUID4):
-    return models.Students.remove(uuid)
-
-
-# @router.post("/User_and_Student", status_code=200)
-# def post_user_with_students(user: schema.PostUser, students: schema.PostStudents):
-#     user_data = models.User(**user.dict())
-#     user_data.students_relation.append(models.Students(**students.dict()))
-#     return user_data.create()
-
-
-@router.delete("/delete_User_Student", status_code=200)
-def delete_user_student_and_all(uuid: UUID4, current_user: str = Depends(auth.Key.n5)):
-    print(current_user)
-    """Utilizar o UUID do Student"""
-    return models.User.remove(uuid)
+def delete_students_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n1)):
+    try:
+        if current_user["user_uuid"] == str(uuid) or 5 in current_user["key"]:
+            return models.User.remove(uuid)
+        else:
+            raise HTTPException(
+            status_code=401,
+            detail=[
+                {"msg": "Desculpe Você nao tem Permissão, Chave de acesso expirada!"}
+            ],
+        )
+    except:
+        raise HTTPException(
+            status_code=401,
+            detail=[
+                {"msg": "Desculpe Você nao tem Permissão, Chave de acesso expirada!"}
+            ],
+        )
+    
 
 
 @router.post("/student_with_all", status_code=200)
@@ -83,7 +87,9 @@ def create_student_with_all(
     for data_jobsarea in jobs_area:
         data_student.list_jobsarea.append(models.ListJobsArea(**data_jobsarea.dict()))
     for data_prevjobs in prev_jobs:
-        data_student.list_previouslyjobs.append(models.ListPreviouslyJobs(**data_prevjobs.dict()))
+        data_student.list_previouslyjobs.append(
+            models.ListPreviouslyJobs(**data_prevjobs.dict())
+        )
     if pcd:
         for data_pcd in pcd:
             data_student.students_pcd.append(models.StudentsPcd(**data_pcd.dict()))
