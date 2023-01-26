@@ -43,6 +43,6 @@ def update_user_by_uuid(uuid: UUID4, json_data: schema.PutUser, current_user = D
 
 
 @router.delete("/uuid", status_code=204)
-def delete_user_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n4)):
+def delete_user_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n5)):
     print(current_user)
     return models.User.remove(uuid)
