@@ -93,10 +93,6 @@ class Key:
     # vefifica se o usuario tem o nivel de permissao N2
     async def n2(Autentication: Optional[str] = Header(None)):
         payload = decode_token(Autentication, 2)
-        if not models.User.exist("uuid", payload["user_uuid"]):
-            raise HTTPException(
-                status_code=401, detail=[{"msg": "Usuario nao encontrado"}]
-            )
         return payload
 
     # vefifica se o usuario tem o nivel de permissao minima N1
