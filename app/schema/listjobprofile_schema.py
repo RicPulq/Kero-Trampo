@@ -19,6 +19,13 @@ class PostListJobProfile(BaseModel):
     others: str | None = Field(
         description="Onde o usuário vai declara uma opção que está fora da lista pré-populada"
     )
+    class Config:
+            schema_extra = {
+                "example": {
+                    "job_profile_uuid": "83f08cf1-87bf-4af3-b49b-dc42efc92920",
+                    "others": ""
+                }
+            }
 
 
 class GetListJobProfile(BaseModel):

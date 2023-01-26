@@ -19,6 +19,13 @@ class PostListHiringProblems(BaseModel):
     others: str | None = Field(
         description="Onde o usuário vai declara uma opção que está fora da lista pré-populada"
     )
+    class Config:
+            schema_extra = {
+                "example": {
+                    "hiring_problems_uuid": "a78af218-83cb-478b-8e9a-4f3a4946cdd3",
+                    "others": ""
+                }
+            }
 
 
 class GetListHiringProblems(BaseModel):

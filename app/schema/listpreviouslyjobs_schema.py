@@ -10,6 +10,13 @@ class PostListPreviouslyJobs(BaseModel):
     # student_uuid: UUID | None = Field(description='Student_uuid Documentar')
     prev_job_uuid: UUID | None = Field(description='Prev_job_uuid Documentar')
     others: str | None = Field(description='Onde o usuário vai declara uma opção que está fora da lista pré-populada')
+    class Config:
+        schema_extra = {
+            "example": {
+                "prev_job_uuid": "b61499f0-aa23-4e1c-b25b-042f431030ba",
+                "others": ""
+            }
+        }
 
     
 

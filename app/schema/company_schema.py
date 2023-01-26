@@ -19,6 +19,19 @@ class PostCompany(BaseModel):
         description="Phone_number Documentar", max_length=255
     )
     # user_uuid: UUID | None = Field(description='User_uuid Documentar')
+    class Config:
+            schema_extra = {
+                "example": {
+                    "name": "Teste_extra",
+                    "number_employers": 10,
+                    "opening_hours": "2023-01-18T19:21:02.583Z",
+                    "work_style": 1,
+                    "pcd": False,
+                    "link_site": "example.com",
+                    "email": "fanex16388@moneyzon.com",
+                    "phone_number": "65999871362"
+                }
+            }
 
 
 class ShowCompany(PostCompany):

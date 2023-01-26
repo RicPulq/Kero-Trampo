@@ -24,6 +24,15 @@ class PostUser(BaseModel):
         description="Uuid do nível de permissão de acesso do usuário"
     )
     _normalize_nome = validator("username", allow_reuse=True)(util.normalize_lower)
+    class Config:
+        schema_extra = {
+			"example": {
+				"username": "Teste_extra",
+				"password": "string",
+                "active": True,
+                "role_uuid": ""
+			}
+		}
 
 
 class GetUser(BaseModel):

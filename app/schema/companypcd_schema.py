@@ -16,6 +16,13 @@ __all__ = [
 class PostCompanyPcd(BaseModel):
     # company_uuid: UUID | None = Field(description="Company_uuid Documentar")
     pcd_uuid: UUID | None = Field(description="Pcd_uuid Documentar")
+    class Config:
+        schema_extra = {
+            "example": {
+                "pcd_uuid": "8c4f45a4-ddea-4c53-a325-83bc95701f29",
+                "others": ""
+            }
+        }
 
 
 class GetCompanyPcd(BaseModel):

@@ -31,6 +31,18 @@ class PostStudents(BaseModel):
     )
     pcd: bool | None = Field(description="Estudante é PCD ou não")
     # user_uuid: UUID | None = Field(description='User_uuid Documentar')
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "Teste_extra_estudante",
+                "email": "fanex16388@moneyzon.com",
+                "birthdate": datetime.now(),
+                "marital_status": "solteiro",
+                "phone_number": "65905492034",
+                "availability": "sim",
+                "pcd": False,
+            }
+        }
 
 
 class GetStudents(BaseModel):

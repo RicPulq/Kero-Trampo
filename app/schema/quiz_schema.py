@@ -14,6 +14,14 @@ class PostQuiz(BaseModel):
     questions_uuid: UUID | None = Field(description="Question_uuid Documentar")
     answers_uuid: UUID | None = Field(description="Answer_uuid Documentar")
     others: str | None = Field(description="Outros")
+    class Config:
+        schema_extra = {
+            "example": {
+                "questions_uuid": "bd6ecd24-99b5-4283-b173-baabc74b2f68",
+                "answers_uuid": "34b701d3-cfbb-4924-89ac-c6e1a6f3fa2e",
+                "others": ""
+            }
+        }
 
 
 class GetQuiz(BaseModel):

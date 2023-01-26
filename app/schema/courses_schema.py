@@ -27,6 +27,20 @@ class PostCourses(BaseModel):
     phone_number: str | None = Field(
         description="Phone_number Documentar", max_length=255
     )
+    class Config:
+            schema_extra = {
+                "example": {
+                    "name": "Teste_extra_curso",
+                    "modality": "presencial",
+                    "annual_graduates": 15,
+                    "employability_index": 95,
+                    "businessperson_index": 25,
+                    "public_server_index": 34,
+                    "link_site": "example.com",
+                    "email": "fanex16388@moneyzon.com",
+                    "phone_number": "65999871362"
+                }
+            }
 
 
 class GetCourses(BaseModel):

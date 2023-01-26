@@ -13,6 +13,13 @@ class PostListJobsArea(BaseModel):
     # student_uuid: UUID | None = Field(description='Student_uuid Documentar')
     jobs_area_uuid: UUID | None = Field(description='Jobs_area_uuid Documentar')
     others: str | None = Field(description="Onde o usuário vai declara uma opção que está fora da lista pré-populada")
+    class Config:
+        schema_extra = {
+            "example": {
+                "jobs_area_uuid": "64967c0f-cda3-4c3d-8c98-61bf97037bdc",
+                "others": ""
+            }
+        }
 
     
 

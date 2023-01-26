@@ -22,6 +22,13 @@ class PostListCharacteristics(BaseModel):
     others: str | None = Field(
         description="Onde o usuário vai declara uma opção que está fora da lista pré-populada"
     )
+    class Config:
+        schema_extra = {
+            "example": {
+                "characteristic_uuid": "f93619b9-7507-4138-b310-ae18f9df7dc1",
+                "others": ""
+            }
+        }
 
 
 class GetListCharacteristics(BaseModel):
