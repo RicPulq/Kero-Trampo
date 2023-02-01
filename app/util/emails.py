@@ -41,26 +41,23 @@ def send_email(email_reciver: str, subject: str, body=str) -> any:
         )
 
 
-def send_reset_password_email(email_to: str, email: str, token: str) -> None:
+def send_reset_password_email(email_reciver: str, code: str) -> None:
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - Recuperação de senha para {email}"
-    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset_password.html") as f:
-        template_str = f.read()
-    server_host = settings.REDEFINIR_SENHA_ENDPOINT
-    link = f"{server_host}/?{token}"
-    print(link)
-    send_email(
-        email_to=email_to,
-        subject_template=subject,
-        html_template=template_str,
-        environment={
-            "project_name": settings.PROJECT_NAME,
-            "username": email,
-            "email": email_to,
-            "valid_hours": settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS,
-            "link": link,
-        },
-    )
+    body = f"""
+    <html>
+    <h3 style="font-weight:700;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1;text-align:left;color:#555555;">
+        <b>{project_name}</b> - Recuperar Senha
+    </h3>
+    <p style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1;text-align:left;color:#555555;">
+        Recebemos um pedido de recuperação de senha do(a) usuário(a) {email_reciver}
+    </p>
+    <p style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1;text-align:left;color:#555555;">
+        Código de verificação:
+    </p>
+    <h4 align="center" style="padding:50px 0px;">{code}</h2>
+    </html>
+    """
+    send_email(email_reciver, project_name, body)
 
 
 def send_new_account_email(email_to: str, username: str, token: str) -> None:
