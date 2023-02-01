@@ -123,22 +123,18 @@ class Base:
         return data
 
     @classmethod
-    def exist(self, args, kargs):
+    def exist(self,args):
         try:
-            q = f"""SELECT CASE WHEN EXISTS
-            (SELECT '{args}' FROM {self.__tablename__} WHERE '{args}' = '{kargs}')
-            THEN 'True' ELSE 'False' END"""
             _db = Session()
-            new = _db.execute(q)
-            for i in new:
-                if i["case"] == "True":
-                    return True
-                else:
-                    return None
-        except:
-            _db.rollback()
+            data = _db.query(self).filter_by(username=args).first()
+            if not data:
+                raise HTTPException(
+                    status_code=404, detail=[{"msg": "dado não encontrado"}]
+                )
         finally:
             _db.close()
+        return data
+
 
     @classmethod
     def get_dict(self, kwargs):
