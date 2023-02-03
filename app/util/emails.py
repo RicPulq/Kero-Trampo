@@ -12,6 +12,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from app import core
 import smtplib
+import ssl
 
 from app.core.config import settings
 
@@ -26,13 +27,15 @@ def send_email(email_reciver: str, subject: str, body=str) -> any:
         msg["To"] = email_reciver
         msg.attach(MIMEText(conteudo, "html"))
 
+        context = ssl.create_default_context()
+        
         with smtplib.SMTP_SSL(
-            host="smtp.gmail.com", timeout=5, port=core.config.settings.SMTP_PORT
+            host="smtp.gmail.com", timeout=5, port=core.config.settings.SMTP_PORT, context=context
         ) as smtp:
             smtp.ehlo()
             smtp.starttls
             smtp.login(msg["From"], password)
-            smtp.sendmail(msg["From"], [msg["To"]], msg.as_string().encode("utf-8"))
+            smtp.sendmail(msg["From"], [msg["To"]], msg.as_string())
             smtp.quit()
     except smtplib.SMTPException as e:
         raise HTTPException(
