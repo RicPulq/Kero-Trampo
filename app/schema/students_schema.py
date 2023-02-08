@@ -21,7 +21,7 @@ __all__ = [
 class PostStudents(BaseModel):
     name: str | None = Field(description="Nome do estudante", max_length=255)
     email: str | None = Field(description="Email do estudantes", max_length=255)
-    birthdate: datetime | None = Field(description="Data de nascimento")
+    birthdate: str | None = Field(description="Data de nascimento")
     marital_status: str | None = Field(description="Estado Civil", max_length=45)
     phone_number: str | None = Field(
         description="Número do telefone do estudante", max_length=255
@@ -35,8 +35,8 @@ class PostStudents(BaseModel):
         schema_extra = {
             "example": {
                 "name": "Teste_extra_estudante",
-                "email": "fanex16388@moneyzon.com",
-                "birthdate": datetime.now(),
+                "email": "retik51803@fsouda.com",
+                "birthdate": "13/11/2000",
                 "marital_status": "solteiro",
                 "phone_number": "65905492034",
                 "availability": "sim",

@@ -10,7 +10,7 @@ __all__ = ["PostCompany", "GetCompany", "PutCompany", "ShowCompany"]
 class PostCompany(BaseModel):
     name: str | None = Field(description="Name Documentar", max_length=255)
     number_employers: int | None = Field(description="Number_employers Documentar")
-    opening_hours: datetime | None = Field(description="Opening_hours Documentar")
+    opening_hours: str | None = Field(description="Opening_hours Documentar")
     work_style: int | None = Field(description="Work_style Documentar")
     pcd: bool | None = Field(description="Pcd Documentar")
     link_site: str | None = Field(description="Link_site Documentar", max_length=255)

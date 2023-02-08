@@ -13,13 +13,13 @@ class PostCourses(BaseModel):
     modality: str | None = Field(description="Modality Documentar", max_length=255)
     annual_graduates: int | None = Field(description="Annual_graduates Documentar")
     pcd: bool | None = Field(description="Pcd Documentar")
-    employability_index: int | None = Field(
+    employability_index: float | None = Field(
         description="Employability_index Documentar"
     )
-    businessperson_index: int | None = Field(
+    businessperson_index: float | None = Field(
         description="Businessperson_index Documentar"
     )
-    public_server_index: int | None = Field(
+    public_server_index: float | None = Field(
         description="Public_server_index Documentar"
     )
     link_site: str | None = Field(description="Link_site Documentar", max_length=255)

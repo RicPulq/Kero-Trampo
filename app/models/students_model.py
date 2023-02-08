@@ -10,7 +10,7 @@ class Students(db.Base):
     email = db.Column(db.String(255), nullable=False)
 
     # tmax 10, campo obrigatório, Data de Nascimento
-    birthdate = db.Column(db.DateTime, nullable=False)
+    birthdate = db.Column(db.String(255), nullable=False)
 
     # tmax 45, campo obrigatório, Estado Civil
     marital_status = db.Column(db.String(45), nullable=False)

@@ -26,7 +26,7 @@ class AcademicProfiles(db.Base):
     other_courses = db.Column(db.String(255), nullable=False)
 
     # coeficiente academico, opcional
-    academic_coefficient = db.Column(db.Integer, nullable=True)
+    academic_coefficient = db.Column(db.Float, nullable=True)
 
     students = db.relationship(
         "Students",

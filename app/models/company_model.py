@@ -10,7 +10,7 @@ class Company(db.Base):
     number_employers = db.Column(db.Integer)
 
     # Horário de funcionamento
-    opening_hours = db.Column(db.DateTime)
+    opening_hours = db.Column(db.String(255), nullable=False)
 
     # Estilo do emprego, 1=HomeOffice, 2=Presencial, 3=Híbrido
     work_style = db.Column(db.Integer)
