@@ -51,7 +51,7 @@ class GetStudents(BaseModel):
     updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     email: str | None = Field(description="Email Documentar", max_length=255)
-    birthdate: datetime | None = Field(description="Birthdate Documentar")
+    birthdate: str | None = Field(description="Birthdate Documentar")
     marital_status: str | None = Field(
         description="Marital_status Documentar", max_length=45
     )
@@ -82,7 +82,7 @@ class PutStudents(BaseModel):
     # updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     email: str | None = Field(description="Email Documentar", max_length=255)
-    birthdate: datetime | None = Field(description="Birthdate Documentar")
+    birthdate: str | None = Field(description="Birthdate Documentar")
     marital_status: str | None = Field(
         description="Marital_status Documentar", max_length=45
     )
