@@ -1,6 +1,7 @@
 from uuid import UUID
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from datetime import datetime
+from app import util
 
 from app.schema.address_schema import GetAddress
 
@@ -25,6 +26,9 @@ class GetCampus(BaseModel):
     course_uuid: str | None = Field(description='Course_uuid Documentar')
     name_institution: str | None = Field(description='Name_institution Documentar', max_length=255)
     type_institution: str | None = Field(description='Type_institution Documentar', max_length=255)
+    _normalize_nome = validator("name", allow_reuse=True)(util.normalize_lower)
+    _normalize_nome = validator("name_institution", allow_reuse=True)(util.normalize_lower)
+    _normalize_nome = validator("type_institution", allow_reuse=True)(util.normalize_lower)
 
 
     class Config:
