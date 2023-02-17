@@ -17,12 +17,12 @@ def get_paginate_studentspcd_by_page_per_page(page: int, per_page: int):
     return models.StudentsPcd.get_paginate(page, per_page)
 
 
-@router.get("/uuid", response_model=schema.ShowPCDs, status_code=200)
+@router.get("/uuid", response_model=schema.ShowStudentsPCDs, status_code=200)
 def get_studentspcd_by_uuid(uuid: UUID4):
     return models.StudentsPcd.get(uuid)
 
 
-@router.get("/students_uuid", response_model=List[schema.ShowPCDs], status_code=200)
+@router.get("/students_uuid", response_model=List[schema.ShowStudentsPCDs], status_code=200)
 def get_pcds_by_students_uuid(uuid: UUID4):
     try:
         _db = db.Session()
