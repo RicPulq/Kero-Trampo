@@ -9,7 +9,7 @@ __all__ = [
     "PostCompanyPcd",
     "GetCompanyPcd",
     "PutCompanyPcd",
-    "ShowPCDs"
+    "ShowCompanyPCDs"
 ]
 
 
@@ -36,7 +36,7 @@ class GetCompanyPcd(BaseModel):
         orm_mode = True
 
 
-class ShowPCDs(GetCompanyPcd):
+class ShowCompanyPCDs(GetCompanyPcd):
     pcd: GetPcd
     company: GetCompany
 

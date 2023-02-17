@@ -5,7 +5,7 @@ from datetime import datetime
 from app.schema.pcd_schema import GetPcd
 from app.schema.students_schema import GetStudents
 
-__all__ = ['PostStudentsPcd', 'GetStudentsPcd', 'PutStudentsPcd','ShowPCDs']
+__all__ = ['PostStudentsPcd', 'GetStudentsPcd', 'PutStudentsPcd','ShowStudentsPCDs']
 
 
 
@@ -34,8 +34,9 @@ class GetStudentsPcd(BaseModel):
         orm_mode = True
 
 
-class ShowPCDs(GetStudentsPcd):
+class ShowStudentsPCDs(GetStudentsPcd):
     pcd: GetPcd
+    students: GetStudents
     class Config:
         orm_mode=True
 
