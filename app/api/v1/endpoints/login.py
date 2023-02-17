@@ -62,10 +62,10 @@ def forget_password(email: str):
 
 
 @router.put("/reset_password", status_code=200)
-def reset_password(forgot: str , code: str, json_data: schema.PutUser):
+def reset_password(forgot_token: str , code: str, json_data: schema.PutUser):
     """ Só atualizar a senha nessa rota"""
     try:
-        aux = auth.decode_token(forgot)
+        aux = auth.decode_token(forgot_token)
         if verify_password(code, aux["chave"]):
             json_data.password = get_password_hash(json_data.password)
             return models.User.update(aux["uuid"], **json_data.dict(exclude_unset=True))
