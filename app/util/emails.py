@@ -30,18 +30,20 @@ def send_email(email_reciver: str, subject: str, body=str) -> any:
         context = ssl.create_default_context()
         
         with smtplib.SMTP_SSL(
-            host="smtp.gmail.com", timeout=5, port=core.config.settings.SMTP_PORT, context=context
+            host=core.config.settings.SMTP_HOST, timeout=5, port=core.config.settings.SMTP_PORT, context=context
         ) as smtp:
             smtp.ehlo()
             smtp.starttls
             smtp.login(msg["From"], password)
             smtp.sendmail(msg["From"], [msg["To"]], msg.as_string())
             smtp.quit()
-    except smtplib.SMTPException as e:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Não foi possível enviar o email para {email_reciver}",
-        )
+    # except smtplib.SMTPException as e:
+    #     raise HTTPException(
+    #         status_code=400,
+    #         detail=f"Não foi possível enviar o email para {email_reciver}",
+    #     )
+    finally:
+        pass
 
 
 def send_reset_password_email(email_reciver: str, code: str) -> None:
