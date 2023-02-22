@@ -48,6 +48,7 @@ class GetCompany(BaseModel):
     phone_number: str | None = Field(
         description="Phone_number Documentar", max_length=255
     )
+    user_uuid: UUID | None = Field(description="User_uuid Documentar")
 
     class Config:
         orm_mode = True
