@@ -26,7 +26,7 @@ conteudo = """
                         <td width="570" align="center"  bgcolor="#d80a3e"><h1>Inscrição Realizada Com Sucesso</h1></td>
                     </tr>
                     <tr>
-                        <td width="570" align="right" bgcolor="#d80a3e"><p>November 2023</p></td>
+                        <td width="570" align="right" bgcolor="#d80a3e"><p>2023</p></td>
                     </tr>
                     </table>
                 </td>
