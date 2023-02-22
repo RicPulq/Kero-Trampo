@@ -34,13 +34,6 @@ class PostCompany(BaseModel):
             }
 
 
-class ShowCompany(PostCompany):
-    address: GetAddress | None = Field(description="Endereço")
-
-    class Config:
-        orm_mode = True
-
-
 class GetCompany(BaseModel):
     uuid: UUID | None = Field(description="Uuid Documentar")
     creat_at: datetime | None = Field(description="Creat_at Documentar")
