@@ -23,7 +23,7 @@ def send_email(email_reciver: str, subject: str, body=str) -> any:
         password = core.config.settings.SMTP_PASSWORD
         msg = MIMEMultipart()
         msg["Subject"] = f"{subject}"
-        msg["From"] = core.config.settings.SMTP_USER
+        msg["From"] = core.config.settings.EMAILS_FROM_EMAIL
         msg["To"] = email_reciver
         msg.attach(MIMEText(conteudo, "html"))
 
