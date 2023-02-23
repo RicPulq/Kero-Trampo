@@ -37,13 +37,11 @@ def send_email(email_reciver: str, subject: str, body=str) -> any:
             smtp.login(msg["From"], password)
             smtp.sendmail(msg["From"], [msg["To"]], msg.as_string())
             smtp.quit()
-    # except smtplib.SMTPException as e:
-    #     raise HTTPException(
-    #         status_code=400,
-    #         detail=f"Não foi possível enviar o email para {email_reciver}",
-    #     )
-    finally:
-        pass
+    except smtplib.SMTPException as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Não foi possível enviar o email para {email_reciver}",
+        )
 
 
 def send_reset_password_email(email_reciver: str, code: str) -> None:
