@@ -23,10 +23,7 @@ conteudo = """
                 <td>
                     <table id="header" cellpadding="10" cellspacing="0" align="center" bgcolor="8fb3e9">
                     <tr>
-                        <td width="570" align="center"  bgcolor="#d80a3e"><h1>Inscrição Realizada Com Sucesso</h1></td>
-                    </tr>
-                    <tr>
-                        <td width="570" align="right" bgcolor="#d80a3e"><p>2023</p></td>
+                        <td width="570" align="center"  bgcolor="#0000CD"><h1>Inscrição Realizada Com Sucesso</h1></td>
                     </tr>
                     </table>
                 </td>
