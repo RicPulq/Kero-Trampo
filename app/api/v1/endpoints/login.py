@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends,HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query, Header
 import random, string
 from ....core.security import get_password_hash, verify_password
 
@@ -43,35 +43,31 @@ def forget_password(email: str):
                 aux.append(random.choice(digits))
                 aux.append(random.choice(letters))
             aux = random.sample(aux, 6)
-            aux2 = ''.join(aux)
+            aux2 = "".join(aux)
             aux3 = get_password_hash(aux2)
             print(aux2)
-            sub = {"uuid":uuid, "chave":aux3}
+            sub = {"uuid": uuid, "chave": aux3}
             reponse = schema.LoginResponse(
                 token=auth.encode_token(
-                    sub, core.settings.ACCESS_TOKEN_EXPIRE_MINUTES,
+                    sub,
+                    core.settings.ACCESS_TOKEN_EXPIRE_MINUTES,
                 ),
-                user=sub["uuid"]
+                user=sub["uuid"],
             )
     except HTTPException as e:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Usuário não encontrado."
-        )
+        raise HTTPException(status_code=404, detail=f"Usuário não encontrado.")
     return reponse, util.send_reset_password_email(email, aux2)
 
 
 @router.put("/reset_password", status_code=200)
-def reset_password(forgot_token: str , code: str, json_data: schema.PutUser):
-    """ Só atualizar a senha nessa rota"""
+def reset_password( json_data: schema.PutUser, forgot_token: str = Header(..., description="Código token com o código de verificação"), code: str = Query(description="Código de verificação",max_length=6)):
+    """Só atualizar a senha nessa rota"""
     try:
         aux = auth.decode_token(forgot_token)
         if verify_password(code, aux["chave"]):
             json_data.password = get_password_hash(json_data.password)
             return models.User.update(aux["uuid"], **json_data.dict(exclude_unset=True))
+        raise HTTPException(status_code=401, detail=f"Acesso não autorizado.")
     except HTTPException as e:
-        raise HTTPException(
-            status_code=401,
-            detail=f"Acesso não autorizado."
-        )
+        raise HTTPException(status_code=401, detail=f"Acesso não autorizado.")
     return "Ok"
