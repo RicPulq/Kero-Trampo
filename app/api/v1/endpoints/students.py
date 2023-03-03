@@ -76,24 +76,26 @@ def create_student_with_all(
     pcd: List[schema.PostStudentsPcd] | None,
 ):
     """Rota para criar toda a ficha do egressista"""
-    # data_student.ad.append(models.Address(**address.dict()))
-    user.password = get_password_hash(user.password)
-    data_student = models.Students(**student.dict())
-    data_student.address = models.Address(**address.dict())
-    data_student.academicprofiles = models.AcademicProfiles(**academic_profile.dict())
-    data_student.user = models.User(**user.dict())
-    for data_quiz in quiz:
-        data_student.quiz.append(models.Quiz(**data_quiz.dict()))
-    for data_jobsarea in jobs_area:
-        data_student.list_jobsarea.append(models.ListJobsArea(**data_jobsarea.dict()))
-    for data_prevjobs in prev_jobs:
-        data_student.list_previouslyjobs.append(
-            models.ListPreviouslyJobs(**data_prevjobs.dict())
-        )
-    if pcd:
-        for data_pcd in pcd:
-            data_student.students_pcd.append(models.StudentsPcd(**data_pcd.dict()))
+    try:
+        user.password = get_password_hash(user.password)
+        data_student = models.Students(**student.dict())
+        data_student.address = models.Address(**address.dict())
+        data_student.academicprofiles = models.AcademicProfiles(**academic_profile.dict())
+        data_student.user = models.User(**user.dict())
+        for data_quiz in quiz:
+            data_student.quiz.append(models.Quiz(**data_quiz.dict()))
+        for data_jobsarea in jobs_area:
+            data_student.list_jobsarea.append(models.ListJobsArea(**data_jobsarea.dict()))
+        for data_prevjobs in prev_jobs:
+            data_student.list_previouslyjobs.append(
+                models.ListPreviouslyJobs(**data_prevjobs.dict())
+            )
+        if pcd:
+            for data_pcd in pcd:
+                data_student.students_pcd.append(models.StudentsPcd(**data_pcd.dict()))
 
-    return data_student.create(), util.send_email(
-        student.email, core.settings.PROJECT_NAME, templates.conteudo
-    )
+        return data_student.create(), util.send_email(
+            student.email, core.settings.PROJECT_NAME, templates.conteudo
+        )
+    except HTTPException as e:
+        raise HTTPException(status_code=400, detail=f"Erro ao cadastrar, {e}")

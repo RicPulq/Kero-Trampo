@@ -34,13 +34,11 @@ def create_new_company(
     return data.create()
 
 
-@router.post("/v2", response_model=schema.GetCompany, status_code=201)
+@router.post("/v2", status_code=201)
 def create_company_with_all(
     user: schema.PostUser,
     address: schema.PostAddress,
     company: schema.PostCompany,
-    # address_branch: schema.PostAddress,
-    # branch: List[schema.PostBranchOffice],
     hiring_problems: List[schema.PostListHiringProblems],
     characteristcs: List[schema.PostListCharacteristics],
     jobsprofile: List[schema.PostListJobProfile] | None,
@@ -48,37 +46,38 @@ def create_company_with_all(
     pcd: List[schema.PostCompanyPcd] | None,
 ):
     """Para criar uma filial, usar rota BranchOffice"""
-    user.password = get_password_hash(user.password)
-    data_company = models.Company(**company.dict())
-    data_company.user = models.User(**user.dict())
-    data_company.address = models.Address(**address.dict())
-    # for data_branch in branch:
-    #     data_company.branch.append(models.BranchOffice(**data_branch.dict()))
-    #     data_company.branch.address=(models.Address(**address_branch.dict()))
-    for data_hproblems in hiring_problems:
-        data_company.list_hiring_problems.append(
-            models.ListHiringProblems(**data_hproblems.dict())
-        )
-    for data_characteristics in characteristcs:
-        data_company.list_characteristic.append(
-            models.ListCharacteristics(**data_characteristics.dict())
-        )
-    if jobsprofile:
-        for data_jobsprofile in jobsprofile:
-            data_company.list_job_profile.append(
-                models.ListJobProfile(**data_jobsprofile.dict())
+    try:
+        user.password = get_password_hash(user.password)
+        data_company = models.Company(**company.dict())
+        data_company.user = models.User(**user.dict())
+        data_company.address = models.Address(**address.dict())
+        for data_hproblems in hiring_problems:
+            data_company.list_hiring_problems.append(
+                models.ListHiringProblems(**data_hproblems.dict())
             )
-    for data_fieldactivity in fieldactivity:
-        data_company.list_field_activities.append(
-            models.ListFieldActivities(**data_fieldactivity.dict())
-        )
-    if pcd:
-        for data_pcd in pcd:
-            data_company.company_pcd.append(models.CompanyPcd(**data_pcd.dict()))
+        for data_characteristics in characteristcs:
+            data_company.list_characteristic.append(
+                models.ListCharacteristics(**data_characteristics.dict())
+            )
+        if jobsprofile:
+            for data_jobsprofile in jobsprofile:
+                data_company.list_job_profile.append(
+                    models.ListJobProfile(**data_jobsprofile.dict())
+                )
+        for data_fieldactivity in fieldactivity:
+            data_company.list_field_activities.append(
+                models.ListFieldActivities(**data_fieldactivity.dict())
+            )
+        if pcd:
+            for data_pcd in pcd:
+                data_company.company_pcd.append(models.CompanyPcd(**data_pcd.dict()))
 
-    return data_company.create(), util.send_email(
-        company.email, core.settings.PROJECT_NAME, templates.conteudo
-    )
+        return data_company.create(), util.send_email(
+            company.email, core.settings.PROJECT_NAME, templates.conteudo
+        )
+    except HTTPException as e:
+        raise HTTPException(status_code=400, detail=f"Erro ao cadastrar, {e}")
+
 
 
 @router.put("/uuid", response_model=schema.GetCompany, status_code=200)

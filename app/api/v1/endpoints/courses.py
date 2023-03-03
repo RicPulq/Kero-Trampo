@@ -34,18 +34,22 @@ def create_new_courses(
     course: schema.PostCourses,
     pcd: List[schema.PostCoursesPCD] | None,
 ):
-    user.password = get_password_hash(user.password)
-    data_course = models.Courses(**course.dict())
+    try:
+        user.password = get_password_hash(user.password)
+        data_course = models.Courses(**course.dict())
 
-    data_course.user = models.User(**user.dict())
-    data_course.campus = models.Campus(**campus.dict())
-    data_course.campus.address = models.Address(**address.dict())
-    for data_pcd in pcd:
-        data_course.coursespcd.append(models.CoursesPCD(**data_pcd.dict()))
+        data_course.user = models.User(**user.dict())
+        data_course.campus = models.Campus(**campus.dict())
+        data_course.campus.address = models.Address(**address.dict())
+        for data_pcd in pcd:
+            data_course.coursespcd.append(models.CoursesPCD(**data_pcd.dict()))
 
-    return data_course.create(), util.send_email(
-        course.email, core.settings.PROJECT_NAME, templates.conteudo
-    )
+        return data_course.create(), util.send_email(
+            course.email, core.settings.PROJECT_NAME, templates.conteudo
+        )
+    except HTTPException as e:
+        raise HTTPException(status_code=400, detail=f"Erro ao cadastrar, {e}")
+
 
 
 @router.put("/uuid", response_model=schema.GetCourses, status_code=200)
