@@ -1,6 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel, Field, validator
-from app import util
+from app import util, models
 from datetime import datetime
 from .students_schema import UpdateStudent, ShowStudents
 from .company_schema import ShowCompany
@@ -24,6 +24,14 @@ class PostUser(BaseModel):
         description="Uuid do nível de permissão de acesso do usuário"
     )
     _normalize_nome = validator("username", allow_reuse=True)(util.normalize_lower)
+
+    @validator('username')
+    def name_must_contain_space(cls, value):
+        if models.User.exist('username',value):
+            raise ValueError('Usuário já cadastrado')
+        return value.lower()
+    
+
     class Config:
         schema_extra = {
 			"example": {
