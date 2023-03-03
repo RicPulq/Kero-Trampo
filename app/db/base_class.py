@@ -123,14 +123,12 @@ class Base:
         return data
 
     @classmethod
-    def exist(self,args):
+    def exist(self,args, kargs):
         try:
             _db = Session()
-            data = _db.query(self).filter_by(username=args).first()
-            if not data:
-                raise HTTPException(
-                    status_code=404, detail=[{"msg": "dado não encontrado"}]
-                )
+            # data = _db.query(self).filter_by(username=args).first()
+            data = _db.query(self).filter(getattr(self,args)== kargs).first()
+                
         finally:
             _db.close()
         return data
