@@ -6,6 +6,9 @@ class Students(db.Base):
     # tmax 255, campo obrigatório, Nome do Aluno
     name = db.Column(db.String(255), nullable=False)
 
+    # tmax 50, campo obrigatório, Sexo do aluno
+    gender = db.Column(db.String(50), nullable=False)
+
     # tmax 255, campo obrigatório, Email do Aluno
     email = db.Column(db.String(255), nullable=False)
 

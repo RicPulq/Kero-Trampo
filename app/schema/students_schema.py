@@ -20,6 +20,7 @@ __all__ = [
 
 class PostStudents(BaseModel):
     name: str | None = Field(description="Nome do estudante", max_length=255)
+    gender: str | None = Field(description="Gênero do estudante", max_length=50)
     email: str | None = Field(description="Email do estudantes", max_length=255)
     birthdate: str | None = Field(description="Data de nascimento")
     marital_status: str | None = Field(description="Estado Civil", max_length=45)
@@ -35,6 +36,7 @@ class PostStudents(BaseModel):
         schema_extra = {
             "example": {
                 "name": "Teste_extra_estudante",
+                "gender": "MASCULINO",
                 "email": "retik51803@fsouda.com",
                 "birthdate": "13/11/2000",
                 "marital_status": "solteiro",
@@ -50,6 +52,7 @@ class GetStudents(BaseModel):
     creat_at: datetime | None = Field(description="Creat_at Documentar")
     updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
+    gender: str | None = Field(description="Gênero do estudante", max_length=50)
     email: str | None = Field(description="Email Documentar", max_length=255)
     birthdate: str | None = Field(description="Birthdate Documentar")
     marital_status: str | None = Field(
@@ -81,6 +84,7 @@ class PutStudents(BaseModel):
     # creat_at: datetime | None = Field(description="Creat_at Documentar")
     # updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
+    gender: str | None = Field(description="Gênero do estudante", max_length=50)
     email: str | None = Field(description="Email Documentar", max_length=255)
     birthdate: str | None = Field(description="Birthdate Documentar")
     marital_status: str | None = Field(
