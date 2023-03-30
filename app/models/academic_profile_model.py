@@ -25,9 +25,6 @@ class AcademicProfiles(db.Base):
     # tmax 255, campo obrigatório, Outros Curso (se já concluídos)
     other_courses = db.Column(db.String(255), nullable=False)
 
-    # coeficiente academico, opcional
-    academic_coefficient = db.Column(db.Float, nullable=True)
-
     students = db.relationship(
         "Students",
         back_populates="academicprofiles",
