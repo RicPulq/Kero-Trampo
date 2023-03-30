@@ -21,6 +21,7 @@ __all__ = [
 class PostStudents(BaseModel):
     name: str | None = Field(description="Nome do estudante", max_length=255)
     gender: str | None = Field(description="Gênero do estudante", max_length=50)
+    number_children: int | None = Field(description="Número de filhos")
     email: str | None = Field(description="Email do estudantes", max_length=255)
     birthdate: str | None = Field(description="Data de nascimento")
     marital_status: str | None = Field(description="Estado Civil", max_length=45)
@@ -30,6 +31,7 @@ class PostStudents(BaseModel):
     availability: str | None = Field(
         description="Disponibilidade dos dados para empresas parceiras?", max_length=15
     )
+    curriculum: str | None = Field(description="Link para o drive com o currículo", max_length=255)
     pcd: bool | None = Field(description="Estudante é PCD ou não")
     # user_uuid: UUID | None = Field(description='User_uuid Documentar')
     class Config:
@@ -37,11 +39,13 @@ class PostStudents(BaseModel):
             "example": {
                 "name": "Teste_extra_estudante",
                 "gender": "MASCULINO",
+                "number_children": 0,
                 "email": "retik51803@fsouda.com",
                 "birthdate": "13/11/2000",
                 "marital_status": "solteiro",
                 "phone_number": "65905492034",
                 "availability": "sim",
+                "curriculum": "algo.drive.com",
                 "pcd": False,
             }
         }
@@ -53,6 +57,7 @@ class GetStudents(BaseModel):
     updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     gender: str | None = Field(description="Gênero do estudante", max_length=50)
+    number_children: int | None = Field(description="Número de filhos")
     email: str | None = Field(description="Email Documentar", max_length=255)
     birthdate: str | None = Field(description="Birthdate Documentar")
     marital_status: str | None = Field(
@@ -64,6 +69,7 @@ class GetStudents(BaseModel):
     availability: str | None = Field(
         description="Availability Documentar", max_length=15
     )
+    curriculum: str | None = Field(description="Link para o drive com o currículo", max_length=255)
     pcd: bool | None = Field(description="Pcd Documentar")
     user_uuid: UUID | None = Field(description="User_uuid Documentar")
 
@@ -85,6 +91,7 @@ class PutStudents(BaseModel):
     # updat_at: datetime | None = Field(description="Updat_at Documentar")
     name: str | None = Field(description="Name Documentar", max_length=255)
     gender: str | None = Field(description="Gênero do estudante", max_length=50)
+    number_children: int | None = Field(description="Número de filhos")
     email: str | None = Field(description="Email Documentar", max_length=255)
     birthdate: str | None = Field(description="Birthdate Documentar")
     marital_status: str | None = Field(
@@ -96,6 +103,7 @@ class PutStudents(BaseModel):
     availability: str | None = Field(
         description="Availability Documentar", max_length=15
     )
+    curriculum: str | None = Field(description="Link para o drive com o currículo", max_length=255)
     pcd: bool | None = Field(description="Pcd Documentar")
     # user_uuid: UUID | None = Field(description='User_uuid Documentar')
 

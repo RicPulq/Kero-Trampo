@@ -9,6 +9,9 @@ class Students(db.Base):
     # tmax 50, campo obrigatório, Sexo do aluno
     gender = db.Column(db.String(50), nullable=False)
 
+    # número de filhos, campo obrigatório
+    number_children = db.Column(db.Integer, nullable=False)
+
     # tmax 255, campo obrigatório, Email do Aluno
     email = db.Column(db.String(255), nullable=False)
 
@@ -23,6 +26,9 @@ class Students(db.Base):
 
     # tmax 15, campo não obrigatório, Disponibilidade
     availability = db.Column(db.String(15), nullable=False)
+
+    # tmax 255, campo obrigatório, Currículo
+    curriculum = db.Column(db.String(255), nullable=False)
 
     # booleano, PCD ou não:
     pcd = db.Column(db.Boolean)
