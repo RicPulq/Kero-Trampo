@@ -161,9 +161,6 @@ cython_debug/
 
 # Configurações do ambiente de desenvolvimento
 .env
-.git
-.gitignore
-.gitlab-ci.yml
 .vscode/
 .pre-commit-config.yaml
 Dockerfile
