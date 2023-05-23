@@ -1,92 +1,82 @@
-# BACK-END
+# General workflow
 
+The dependencies are managed with [Poetry](https://python-poetry.org/), go there and install it.
 
+From `./backend/` you can install all the dependencies with:
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+```console
+$ poetry install
 ```
-cd existing_repo
-git remote add origin https://gitlab.risc.unemat.br/risc/egresso/back-end.git
-git branch -M main
-git push -uf origin main
+If it originates from a requirements.txt
+```console
+$ cat requirements.txt | xargs poetry add
 ```
 
-## Integrate with your tools
+Then you can start a shell session with the new environment with:
 
-- [ ] [Set up project integrations](https://gitlab.risc.unemat.br/risc/egresso/back-end/-/settings/integrations)
+```console
+$ poetry shell
+```
+----
+## **Root Directory**
+- Next, open your editor at `./backend/` (instead of the project root: `./`), so that you see an `./app/` directory with your code inside. That way, your editor will be able to find all the imports, etc. Make sure your editor uses the environment you just created with Poetry.
 
-## Collaborate with your team
+#### **alembic:**
+- If you need to use a relational database, it is recommended to use [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage data migrations. `./backend/alembic/`
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-## Test and Deploy
+**Migrations**
+During local development run the migrations with `alembic` commands and the migration code will be in your app directory. So you can add it to your git repository.
 
-Use the built-in continuous integration in GitLab.
+Make sure you create a "revision" of your models and that you "upgrade" your database with that revision every time you change them. As this is what will update the tables in your database. Otherwise, your application will have errors.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+* If you created a new model in `./backend/app/models/`, make sure to import it in `./backend/app/db/`, that Python module (`base.py`) that imports all the models will be used by Alembic.
 
-***
+* After changing a model (for example, adding a column), create a revision, e.g.:
 
-# Editing this README
+```console
+$ alembic revision --autogenerate -m "Add column last_name to User model"
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+* Commit to the git repository the files generated in the alembic directory.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+* After creating the revision, run the migration in the database (this is what will actually change the database):
 
-## Name
-Choose a self-explaining name for your project.
+```console
+$ alembic upgrade head
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+#### **app**
+- the app level encapsulates the application modules `./backend/app/`
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+- **api** contains all application endpoints `./backend/app/api/`
+- **auth** if necessary, it contains the application documentation, standard for authorization. OAuth 2.0-based Allows applications such as Web App, Mobile and Desktop to gain limited access to user information via the HTTP protocol `./backend/app/auth/`.
+- **core** contains all environment variables used in the application `./backend/app/core/`, obtaining `.env` files as source in `./`
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- **database** if there is a need to prepopulate data, they should stay at this level`./backend/app/database/`.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- **db** configure the connection and build the database `./backend/app/db/`.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- **models** Modify or add SQLAlchemy models in `./backend/app/models/`
+- **schema** responsible for validating the data structure before allowing input to an endpoint.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+- **static** only if there is a need for static elements in the project.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- **templates** contains templates that are needed in the project, if necessary. 
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+- **uploads** if necessary save files.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- **util** module that contains methods that may or may not be reused in different projects. if Minio client, settings in `./backend/app/util/` (the file `minio.py`)
+if Websocket client, settings in `./backend/app/util/` (the file `ws.py`)
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+#### **docs**
+- if it exists, it contains the application's documentation `./backend/docs/`
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+#### **tests**
+- The ideal scenario would be TDD. Test driven development is a process where you write the test before writing the code. `./backend/tests/`
 
-## License
-For open source projects, say how it is licensed.
+#### **.env** 
+- All environment variables can be fount int the directory `./backand/`(the file `.env`)
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+#### **Dependencies**
+- All the dependencies can be found in the directory `./backend` (the file `pyproject.toml` and `requiriments.txt`)
