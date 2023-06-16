@@ -1,4 +1,4 @@
 include:
   - project: 'risc/egresso/infra'
     ref: main
-    file: 'gitlab_ci_back-end.yml'
+    file: 'gitlab_ci_backend.yml'
