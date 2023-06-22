@@ -6,5 +6,5 @@ employer_characteristics = [
     "Interesse em se desenvolver",
     "Comunicação",
     "Facilidade para trabalhar em equipe",
-    "Outros"
+    "Outros (descrever)",
 ]

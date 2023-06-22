@@ -6,5 +6,5 @@ jobs_area = [
     "Serviços",
     "Microempreendedor",
     "Setor público",
-    "Outros"
+    "Outros (descrever)"
 ]

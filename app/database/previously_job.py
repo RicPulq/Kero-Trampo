@@ -1,1 +1,1 @@
-previously_job = ["Financeiro", "Contabilidade", "Administrativo", "Outros"]
+previously_job = ["Financeiro", "Contabilidade", "Administrativo", "Outros (descrever)"]

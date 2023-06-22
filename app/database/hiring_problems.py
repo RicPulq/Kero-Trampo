@@ -5,5 +5,5 @@ hiring_problems = [
     "Escolaridade incompleta",
     "Falta de conhecimento em informática",
     "Dificuldades para divulgar as vagas",
-    "Outros"
+    "Outros (descrever)"
 ]

@@ -1,7 +1,1 @@
-pcd = [
-    "Doenças neurológicas",
-    "Deficiência auditiva",
-    "Deficiência visual",
-    "Lesão por Esforço Repetitivo",
-    "Paraplegia",
-]
+pcds = ["Física", "Auditiva", "Visual", "Mental/Intelectual", "Múltipla", "Outros (descrever)"]

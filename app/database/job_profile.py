@@ -1,1 +1,1 @@
-job_profile = ["Administrativo", "Financeiro", "Contabilidade", "Outros"]
+job_profile = ["Administrativo", "Financeiro", "Contabilidade", "Outros (descrever)"]
