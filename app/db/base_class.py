@@ -49,6 +49,47 @@ class Base:
         return data
 
     @classmethod
+    def query_com_dois_params(
+        self,
+        attribute: str | None,
+        value: str | None,
+        attrib_2: str | None = None,
+        value_2: str | None = None,
+    ) -> object | bool:
+        try:
+            _db = Session()
+            if attrib_2 != None:
+                data = (
+                    _db.query(self)
+                    .filter(
+                        getattr(self, attribute) == value,
+                        getattr(self, attrib_2) == value_2,
+                    )
+                    .first()
+                )
+            else:
+                data = (
+                    _db.query(self)
+                    .filter(getattr(self, attribute) == value)
+                    .first()
+                )
+            if data:
+                return data
+            else:
+                return False
+        except Exception as e:
+            raise HTTPException(
+                status_code=e.status_code
+                if hasattr(e, "status_code")
+                else 555,
+                detail=e.detail
+                if hasattr(e, "detail")
+                else "Erro interno API!",
+            )
+        finally:
+            _db.close()
+
+    @classmethod
     def get_all(self):
         try:
             _db = Session()
@@ -58,11 +99,11 @@ class Base:
             _db.close()
 
         return data
-    
+
     @classmethod
-    def get_paginate(self, page: int, per_page: int ):
+    def get_paginate(self, page: int, per_page: int):
         try:
-            _offset = page* per_page
+            _offset = page * per_page
             _db = Session()
             data = _db.query(self).offset(_offset).limit(per_page).all()
         finally:
@@ -123,16 +164,15 @@ class Base:
         return data
 
     @classmethod
-    def exist(self,args, kargs):
+    def exist(self, args, kargs):
         try:
             _db = Session()
             # data = _db.query(self).filter_by(username=args).first()
-            data = _db.query(self).filter(getattr(self,args)== kargs).first()
-                
+            data = _db.query(self).filter(getattr(self, args) == kargs).first()
+
         finally:
             _db.close()
         return data
-
 
     @classmethod
     def get_dict(self, kwargs):
