@@ -16,7 +16,7 @@ conteudo = """
     </style>
     </head>
     <body>
-        <h2> UniEmpregos </h2>
+        <h2> KeroTrampo </h2>
     <table width="100%" cellpadding="0" cellspacing="0" bgcolor="e4e4e4"><tr><td> 
         <table id="main" width="600" align="center" cellpadding="0" cellspacing="15" bgcolor="ffffff">
             <tr>
