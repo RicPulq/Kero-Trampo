@@ -3,5 +3,7 @@ questions = [
     "A contribuição do estágio curricular para seu desenvolvimento profissional foi:",
     "Que conceito você atribui ao curso que realizou?",
     "Com base na sua experiência, enquanto acadêmico, em que aspecto o curso deveria propor melhorias para qualificar melhor o formando?",
-    "Atua profissionalmente na sua área de formação?"
+    "Atua profissionalmente na sua área de formação?",
+    "Tem disponibilidade/interesse para trabalhar em qual modalidade?",
+    "Tem conhecimentos de informatica?",
 ]

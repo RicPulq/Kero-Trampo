@@ -9,4 +9,7 @@ answers = [
     {"answer": "Falta de oportunidade profissional"},
     {"answer": "Estou empregado"},
     {"answer": "Outros (descrever)"},
+    {"answer": "Home office"},
+    {"answer": "Híbrido"},
+    {"answer": "Presencial"},
 ]
