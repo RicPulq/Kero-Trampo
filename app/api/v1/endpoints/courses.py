@@ -59,7 +59,6 @@ def update_courses_by_uuid(uuid: UUID4, json_data: schema.PutCourses):
 
 @router.delete("/uuid", status_code=204)
 def delete_courses_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n2)):
-    print(current_user)
     try:
         if current_user["user_uuid"] == str(uuid) or 5 in current_user["key"]:
             return models.User.remove(uuid)
