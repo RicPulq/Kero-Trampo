@@ -11,5 +11,12 @@ answers = [
     {"answer": "Outros (descrever)"},
     {"answer": "Home office"},
     {"answer": "Híbrido"},
-    {"answer": "Presencial"},
+    {"answer": "Criatividade"},
+    {"answer": "Interesse em novas tecnologias"},
+    {"answer": "Adaptabilidade"},
+    {"answer": "Interesse em se desenvolver"},
+    {"answer": "Planejamento"},
+    {"answer": "Comunicação"},
+    {"answer": "Facilidade para trabalhar em equipe"},
+    
 ]
