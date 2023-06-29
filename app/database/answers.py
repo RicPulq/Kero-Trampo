@@ -8,7 +8,6 @@ answers = [
     {"answer": "Salário melhor em outra área"},
     {"answer": "Falta de oportunidade profissional"},
     {"answer": "Estou empregado"},
-    {"answer": "Outros (descrever)"},
     {"answer": "Home office"},
     {"answer": "Híbrido"},
     {"answer": "Criatividade"},
@@ -18,5 +17,13 @@ answers = [
     {"answer": "Planejamento"},
     {"answer": "Comunicação"},
     {"answer": "Facilidade para trabalhar em equipe"},
-    
+    {"answer": "TCC"},
+    {"answer": "Qualificação dos professores"},
+    {"answer": "Metodologia de ensino"},
+    {"answer": "Atividades práticas"},
+    {"answer": "Projetos de extensão"},
+    {"answer": "Eventos"},
+    {"answer": "Estágio Obrigatório"},
+    {"answer": "Currículo do curso"},
+    {"answer": "Outros (descrever)"},
 ]
