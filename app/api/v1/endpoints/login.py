@@ -34,7 +34,7 @@ def login(login: schema.Login):
 @router.post("/forgot_password", status_code=200)
 def forget_password(email: str):
     try:
-        if models.User.exist(email):
+        if models.User.exist("username",email):
             uuid = str(models.User.exist(email).uuid)
             letters = string.ascii_uppercase
             digits = string.digits
