@@ -35,7 +35,7 @@ def login(login: schema.Login):
 def forget_password(email: str):
     try:
         if models.User.exist("username",email):
-            uuid = str(models.User.exist(email).uuid)
+            uuid = str(models.User.exist("username",email).uuid)
             letters = string.ascii_uppercase
             digits = string.digits
             aux = []
