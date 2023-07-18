@@ -4,7 +4,7 @@ answers = [
     {"answer": "Sem condições para responder"},
     {"answer": "Satisfatório"},
     {"answer": "Muito satisfatório"},
-    {"answer": "Insegurança em atuar na área de fromação"},
+    {"answer": "Insegurança em atuar na área de formação"},
     {"answer": "Salário melhor em outra área"},
     {"answer": "Falta de oportunidade profissional"},
     {"answer": "Estou empregado"},
