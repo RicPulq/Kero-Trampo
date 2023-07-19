@@ -10,6 +10,7 @@ answers = [
     {"answer": "Estou empregado"},
     {"answer": "Home office"},
     {"answer": "Híbrido"},
+    {"answer": "Presencial"},
     {"answer": "Criatividade"},
     {"answer": "Interesse em novas tecnologias"},
     {"answer": "Adaptabilidade"},
