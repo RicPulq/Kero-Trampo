@@ -12,6 +12,7 @@ answers = [
     {"answer": "Híbrido"},
     {"answer": "Presencial"},
     {"answer": "Criatividade"},
+    {"answer": "Iniciativa"},
     {"answer": "Interesse em novas tecnologias"},
     {"answer": "Adaptabilidade"},
     {"answer": "Interesse em se desenvolver"},
