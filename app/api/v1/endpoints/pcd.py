@@ -1,6 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic.types import UUID4
 from typing import List
+
+from app.auth import auth
 
 from app import schema, models
 
@@ -33,7 +35,7 @@ def update_pcd_by_uuid(uuid: UUID4, json_data: schema.PutPcd):
 
 
 @router.delete("/uuid", status_code=204)
-def delete_pcd_by_uuid(uuid: UUID4):
+def delete_pcd_by_uuid(uuid: UUID4, current_user: str = Depends(auth.Key.n5)):
     return models.Pcd.remove(uuid)
 
     
