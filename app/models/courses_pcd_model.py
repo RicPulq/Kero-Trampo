@@ -9,3 +9,5 @@ class CoursesPCD(db.Base):
     pcd = db.relationship("Pcd", back_populates="courses_pcd", lazy="joined", cascade="save-update")
 
     courses = db.relationship("Courses", back_populates="coursespcd", lazy="joined", cascade="save-update")
+
+    others = db.Column(db.String(255), nullable=True)

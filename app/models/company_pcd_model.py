@@ -18,3 +18,5 @@ class CompanyPcd(db.Base):
     pcd = db.relationship(
         "Pcd", back_populates="company_pcd", lazy="joined", cascade="save-update"
     )
+
+    others = db.Column(db.String(255), nullable=True)
