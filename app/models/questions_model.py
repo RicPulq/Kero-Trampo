@@ -3,7 +3,7 @@ from app import db
 class Questions(db.Base):
 
     #tmax 255, campo obrigatório, Perguntas
-    questions = db.Column(db.String(255), nullable=False)
+    questions = db.Column(db.String(255), unique=True, nullable=False)
 
     quiz = db.relationship("Quiz", back_populates="questions", lazy="joined", cascade="save-update")
     

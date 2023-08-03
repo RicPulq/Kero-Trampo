@@ -3,6 +3,6 @@ from app import db
 class JobsProfile(db.Base):
 
     #tmax 255, campo obrigatório, Perfil do Trabalho
-    name = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), unique=True, nullable=False)
 
     list = db.relationship("ListJobProfile", back_populates="job_profile", cascade="save-update")
