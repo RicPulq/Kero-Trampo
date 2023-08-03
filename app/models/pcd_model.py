@@ -4,7 +4,7 @@ from app import db
 class Pcd(db.Base):
 
     # nome PCD
-    name = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), unique=True,nullable=False)
 
     students_pcd = db.relationship(
         "StudentsPcd", back_populates="pcd", cascade="save-update"
