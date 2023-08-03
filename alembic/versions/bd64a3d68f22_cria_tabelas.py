@@ -218,6 +218,7 @@ def upgrade():
     sa.Column('updat_at', sa.DateTime(), nullable=True),
     sa.Column('company_uuid', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('pcd_uuid', postgresql.UUID(as_uuid=True), nullable=False),
+    sa.Column('others', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['company_uuid'], ['company.uuid'], ),
     sa.ForeignKeyConstraint(['pcd_uuid'], ['pcd.uuid'], ),
     sa.PrimaryKeyConstraint('uuid')
@@ -228,6 +229,7 @@ def upgrade():
     sa.Column('updat_at', sa.DateTime(), nullable=True),
     sa.Column('courses_uuid', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('pcd_uuid', postgresql.UUID(as_uuid=True), nullable=False),
+    sa.Column('others', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['courses_uuid'], ['courses.uuid'], ),
     sa.ForeignKeyConstraint(['pcd_uuid'], ['pcd.uuid'], ),
     sa.PrimaryKeyConstraint('uuid')
@@ -317,6 +319,7 @@ def upgrade():
     sa.Column('updat_at', sa.DateTime(), nullable=True),
     sa.Column('students_uuid', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('pcd_uuid', postgresql.UUID(as_uuid=True), nullable=False),
+    sa.Column('others', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['pcd_uuid'], ['pcd.uuid'], ),
     sa.ForeignKeyConstraint(['students_uuid'], ['students.uuid'], ),
     sa.PrimaryKeyConstraint('uuid')
