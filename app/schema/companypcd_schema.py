@@ -31,6 +31,9 @@ class GetCompanyPcd(BaseModel):
     updat_at: datetime | None = Field(description="Updat_at Documentar")
     company_uuid: UUID | None = Field(description="Company_uuid Documentar")
     pcd_uuid: UUID | None = Field(description="Pcd_uuid Documentar")
+    others: str | None = Field(
+        description="Onde o usuário vai declara uma opção que está fora da lista pré-populada"
+    )
 
     class Config:
         orm_mode = True
