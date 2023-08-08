@@ -16,7 +16,7 @@ conteudo = """
                 <tr>
                     <td>
                         <h2 style="color: #fff;font-family: 'Poppins'; font-size: 22px; margin: 0; text-align: center; text-shadow: 5px 5px 8px #000000aa;">Sejam bem-vindos no site</h2>
-                        <h2 style="color: #fff;font-family: 'Poppins'; font-size: 26px; margin: 0; text-align: center; text-shadow: 5px 5px 8px #000000aa;">KERO TRAMPO.</h2>
+                        <h2 style="color: #fff;font-family: 'Poppins'; font-size: 26px; margin: 0; text-align: center; text-shadow: 5px 5px 8px #000000aa;">KeroTrampo.</h2>
                     </td>
                 </tr>
                 <tr>
@@ -27,8 +27,8 @@ conteudo = """
                         <p style="color: #fff;font-family: 'Poppins'; text-align: center; font-size: 18px; margin: 0;">Este é um e-mail automático.</p>
                         <p style="color: #fff;font-family: 'Poppins'; text-align: center; font-size: 18px; margin: 0;">Para falar conosco, entre em contato:</p>
                         <div style="height: 10px;"></div>
-                        <a href="mailto:kerotrampocaceres@gmail.com" style="font-family: 'Poppins'; cursor: pointer; display: block; color: #d7ae45; text-decoration: none; text-align: center;">
-                            <span style=" font-family: 'Poppins'; text-align: center; font-size: 18px; margin: 10px 0;">kerotrampocaceres@gmail.com</span>
+                        <a href="mailto:contatokerotrampo@gmail.com" style="font-family: 'Poppins'; cursor: pointer; display: block; color: #d7ae45; text-decoration: none; text-align: center;">
+                            <span style=" font-family: 'Poppins'; text-align: center; font-size: 18px; margin: 10px 0;">contatokerotrampo@gmail.com</span>
                         </a>
                     </td>
                 </tr>
