@@ -2,10 +2,12 @@ from fastapi import APIRouter, HTTPException, Depends
 from pydantic.types import UUID4
 from typing import List
 from app.auth import auth
+import app.util as util
+import app.templates as templates
 
 from ....core.security import *
 
-from app import schema, models
+from app import schema, models, core
 
 router = APIRouter(prefix="/user", tags=["User"])
 
@@ -32,7 +34,8 @@ def create_new_user(
 ):
     json_data.password = get_password_hash(json_data.password)
     data = models.User(**json_data.dict())
-    return data.create()
+    
+    return data.create(), util.send_email(json_data.username, core.settings.PROJECT_NAME, templates.conteudo)
 
 
 @router.put("/uuid", response_model=schema.GetUser, status_code=200)
