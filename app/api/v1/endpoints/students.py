@@ -95,7 +95,7 @@ def create_student_with_all(
                 data_student.students_pcd.append(models.StudentsPcd(**data_pcd.dict()))
 
         return data_student.create(), util.send_email(
-            user.email, core.settings.PROJECT_NAME, templates.conteudo
+            user.username, core.settings.PROJECT_NAME, templates.conteudo
         )
     except HTTPException as e:
         raise HTTPException(status_code=400, detail=f"Erro ao cadastrar, {e}")
